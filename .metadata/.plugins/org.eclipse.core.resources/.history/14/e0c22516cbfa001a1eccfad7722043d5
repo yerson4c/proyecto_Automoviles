@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Proyecto_Automoviles">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="Proyecto_AutomovilesWeb.war" deploy-path="/" handle="module:/resource/Proyecto_AutomovilesWeb/Proyecto_AutomovilesWeb">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Proyecto_AutomovilesEJB.jar" deploy-path="/" handle="module:/resource/Proyecto_AutomovilesEJB/Proyecto_AutomovilesEJB">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
