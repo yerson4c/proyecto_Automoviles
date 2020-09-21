@@ -2,46 +2,45 @@ package automovil.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Time;
+import java.sql.Timestamp;
 
 
 /**
- * The persistent class for the "EstadoAlquiler" database table.
+ * The persistent class for the estado_alquiler database table.
  * 
  */
 @Entity
-@Table(name="\"EstadoAlquiler\"")
+@Table(name="estado_alquiler")
 @NamedQuery(name="EstadoAlquiler.findAll", query="SELECT e FROM EstadoAlquiler e")
 public class EstadoAlquiler implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_estado")
+	@SequenceGenerator(name="ESTADO_ALQUILER_IDESTADO_GENERATOR", sequenceName="ESTADO_ALQUILER_ID_ESTADO_SEQ",allocationSize = 1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ESTADO_ALQUILER_IDESTADO_GENERATOR")
+	@Column(name="id_estado", unique=true, nullable=false)
 	private Integer idEstado;
 
-	@Column(name="fecha_recepcion")
-	private Time fechaRecepcion;
+	@Column(name="fecha_recepcion", nullable=false)
+	private Timestamp fechaRecepcion;
 
-	//bi-directional many-to-one association to Autmovile
-	@ManyToOne
-	@JoinColumn(name="placa")
-	private Autmovile autmovile;
+	@Column(name="id_gerente", nullable=false)
+	private Integer idGerente;
 
 	//bi-directional many-to-one association to Alquiler
 	@ManyToOne
-	@JoinColumn(name="id_alquiler")
+	@JoinColumn(name="id_alquiler", nullable=false)
 	private Alquiler alquiler;
 
-	//bi-directional many-to-one association to Gerente
+	//bi-directional many-to-one association to Automovil
 	@ManyToOne
-	@JoinColumn(name="id_gerente")
-	private Gerente gerente;
+	@JoinColumn(name="id_automovil", nullable=false)
+	private Automovil automovil;
 
-	//bi-directional many-to-one association to Usuario
+	//bi-directional many-to-one association to UsuarioRol
 	@ManyToOne
-	@JoinColumn(name="id_usuario")
-	private Usuario usuario;
+	@JoinColumn(name="id_usuario_rol", nullable=false)
+	private UsuarioRol usuarioRol;
 
 	public EstadoAlquiler() {
 	}
@@ -54,20 +53,20 @@ public class EstadoAlquiler implements Serializable {
 		this.idEstado = idEstado;
 	}
 
-	public Time getFechaRecepcion() {
+	public Timestamp getFechaRecepcion() {
 		return this.fechaRecepcion;
 	}
 
-	public void setFechaRecepcion(Time fechaRecepcion) {
+	public void setFechaRecepcion(Timestamp fechaRecepcion) {
 		this.fechaRecepcion = fechaRecepcion;
 	}
 
-	public Autmovile getAutmovile() {
-		return this.autmovile;
+	public Integer getIdGerente() {
+		return this.idGerente;
 	}
 
-	public void setAutmovile(Autmovile autmovile) {
-		this.autmovile = autmovile;
+	public void setIdGerente(Integer idGerente) {
+		this.idGerente = idGerente;
 	}
 
 	public Alquiler getAlquiler() {
@@ -78,20 +77,20 @@ public class EstadoAlquiler implements Serializable {
 		this.alquiler = alquiler;
 	}
 
-	public Gerente getGerente() {
-		return this.gerente;
+	public Automovil getAutomovil() {
+		return this.automovil;
 	}
 
-	public void setGerente(Gerente gerente) {
-		this.gerente = gerente;
+	public void setAutomovil(Automovil automovil) {
+		this.automovil = automovil;
 	}
 
-	public Usuario getUsuario() {
-		return this.usuario;
+	public UsuarioRol getUsuarioRol() {
+		return this.usuarioRol;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuarioRol(UsuarioRol usuarioRol) {
+		this.usuarioRol = usuarioRol;
 	}
 
 }

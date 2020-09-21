@@ -2,7 +2,7 @@ package automovil.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -11,25 +11,33 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="alquiler")
 @NamedQuery(name="Alquiler.findAll", query="SELECT a FROM Alquiler a")
 public class Alquiler implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id_alquiler")
+	@SequenceGenerator(name="ALQUILER_IDALQUILER_GENERATOR", sequenceName="ALQUILER_ID_ALQUILER_SEQ",allocationSize = 1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ALQUILER_IDALQUILER_GENERATOR")
+	@Column(name="id_alquiler", unique=true, nullable=false)
 	private Integer idAlquiler;
 
+	@Column(nullable=false, length=1)
 	private String estado;
 
-	private Time fechafin;
+	@Column(nullable=false)
+	private Timestamp fechafin;
 
-	private Time fechainicio;
+	@Column(nullable=false)
+	private Timestamp fechainicio;
 
+	@Column(nullable=false, length=50)
 	private String gasolina;
 
+	@Column(nullable=false, length=100)
 	private String observaciones;
 
+	@Column(nullable=false, length=50)
 	private String recepcion;
 
 	//bi-directional many-to-one association to EstadoAlquiler
@@ -55,19 +63,19 @@ public class Alquiler implements Serializable {
 		this.estado = estado;
 	}
 
-	public Time getFechafin() {
+	public Timestamp getFechafin() {
 		return this.fechafin;
 	}
 
-	public void setFechafin(Time fechafin) {
+	public void setFechafin(Timestamp fechafin) {
 		this.fechafin = fechafin;
 	}
 
-	public Time getFechainicio() {
+	public Timestamp getFechainicio() {
 		return this.fechainicio;
 	}
 
-	public void setFechainicio(Time fechainicio) {
+	public void setFechainicio(Timestamp fechainicio) {
 		this.fechainicio = fechainicio;
 	}
 
