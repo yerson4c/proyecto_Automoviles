@@ -41,7 +41,7 @@ public class BeanAutomovil implements Serializable {
 
 	
 	
-	//contraseña
+	//contraseï¿½a
 	private String claveAnterior;
 	private String claveNueva;
 	
@@ -92,7 +92,7 @@ public class BeanAutomovil implements Serializable {
 
 				//listaMedida=managerMedida.findAllMedidas();
 				//managerbit.crearEvento("actionListenerActualizarMedida()", "actualiza una medida ");
-				JSFUtil.crearMensajeInfo("Actualizado con éxito");
+				JSFUtil.crearMensajeInfo("Actualizado con Ã©xito");
 			} else {
 				JSFUtil.crearMensajeError("Debe ingresar la placa"); 
 			}
@@ -128,7 +128,7 @@ public class BeanAutomovil implements Serializable {
 				managerAutomovil.insertarAutomovil(a);
 				
 				listaAutomovil=managerAutomovil.findAllAutomovil();
-				JSFUtil.crearMensajeInfo("Actualizado con éxito");
+				JSFUtil.crearMensajeInfo("Insertado con Ã©xito");
 			} else {
 				JSFUtil.crearMensajeError("Debe ingresar la placa"); 
 			}
@@ -144,7 +144,7 @@ public class BeanAutomovil implements Serializable {
 		try {
 			managerAutomovil.eliminarAutomovil(id);
 			listaAutomovil=managerAutomovil.findAllAutomovil();
-			JSFUtil.crearMensajeInfo("Automóvil ha sido eliminado");
+			JSFUtil.crearMensajeInfo("AutomÃ³vil ha sido eliminado");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -163,9 +163,9 @@ public class BeanAutomovil implements Serializable {
 //			managerUser.actualizarUsuario(us);
 //			System.out.println("paso algo");
 //			
-//			JSFUtil.crearMensajeInfo("Su contraseña se ha actualizado correctamente");
+//			JSFUtil.crearMensajeInfo("Su contraseï¿½a se ha actualizado correctamente");
 //		}else {
-//			JSFUtil.crearMensajeError("Contraseñas no coinciden, ingrese de nuevo");
+//			JSFUtil.crearMensajeError("Contraseï¿½as no coinciden, ingrese de nuevo");
 //		}
 //		
 //	}
@@ -177,11 +177,11 @@ public class BeanAutomovil implements Serializable {
 		int years = fechaActual.get(Calendar.YEAR) - fechaNac.get(Calendar.YEAR);
 		int months = fechaActual.get(Calendar.MONTH) - fechaNac.get(Calendar.MONTH);
 		int days = fechaActual.get(Calendar.DAY_OF_MONTH) - fechaNac.get(Calendar.DAY_OF_MONTH);
-		// Hay que comprobar si el día de su cumpleaños es posterior
-		// a la fecha actual, para restar 1 a la diferencia de años,
-		// pues aún no ha sido su cumpleaños.
-		if (months < 0 // Aún no es el mes de su cumpleaños
-				|| (months == 0 && days < 0)) { // o es el mes pero no ha llegado el día.
+		// Hay que comprobar si el dï¿½a de su cumpleaï¿½os es posterior
+		// a la fecha actual, para restar 1 a la diferencia de aï¿½os,
+		// pues aï¿½n no ha sido su cumpleaï¿½os.
+		if (months < 0 // Aï¿½n no es el mes de su cumpleaï¿½os
+				|| (months == 0 && days < 0)) { // o es el mes pero no ha llegado el dï¿½a.
 			years--;
 		}
 		System.out.println("los anios xD xD " + years);

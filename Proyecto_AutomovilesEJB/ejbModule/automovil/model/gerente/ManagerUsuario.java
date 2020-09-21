@@ -8,8 +8,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import automovil.model.entities.Alquiler;
 
+import automovil.model.entities.Usuario;
 import automovil.model.manager.ManagerDAO;
 
 
@@ -20,7 +20,7 @@ import automovil.model.manager.ManagerDAO;
  */
 @Stateless
 @LocalBean
-public class ManagerAlquiler {
+public class ManagerUsuario {
 
     /**
      * Default constructor. 
@@ -30,24 +30,24 @@ public class ManagerAlquiler {
 @EJB
 private ManagerDAO managerDAO;
 	
-    public ManagerAlquiler() {
-        
+    public ManagerUsuario() {
+        // TODO Auto-generated constructor stub
     }
     
     @SuppressWarnings("unchecked")
-	public List<Alquiler>findAllAlquiler() throws Exception{
+	public List<Usuario>findAllUsuarios() throws Exception{
     	try {        	
-        	return managerDAO.findAll(Alquiler.class);
+        	return managerDAO.findAll(Usuario.class);
 		} catch (Exception e) {
-			throw new Exception("No existe registro de alquileres");
+			throw new Exception("No existe registro de usuarios");
 		}
     	
     }
  
-    public Alquiler findByIdAlquileres(Integer id) {
+    public Usuario findByIdUsuario(Integer id) {
     	
     	try {
-			return (Alquiler) managerDAO.findById(Alquiler.class, id);
+			return (Usuario) managerDAO.findById(Usuario.class, id);
 			//managerDAO.findWhere(clase, pClausulaWhere, pOrderBy)
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,23 +64,22 @@ private ManagerDAO managerDAO;
 		}
 		return null;	
     }*/
-    public void insertarAlquiler(Alquiler us) throws Exception {
-    	//managerDAO.insertar(cat);
-    	em.merge(us);
+    public void insertarUsuario(Usuario us) throws Exception {
+    	managerDAO.insertar(us);
+    	//em.merge(us);
     }
     
-    public void actualizarAlquiler(Alquiler alquiler)throws Exception{
+    public void actualizarUsuario(Usuario us)throws Exception{
     	try {
-    		managerDAO.actualizar(alquiler);
+    		managerDAO.actualizar(us);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 						
     }
     
-    public void eliminarAlquiler(Integer id) throws Exception {
-    	
-			managerDAO.eliminar(Alquiler.class, id);
+    public void eliminarUsuario(Integer id) throws Exception {
+			managerDAO.eliminar(Usuario.class, id);
     }
     
 } 

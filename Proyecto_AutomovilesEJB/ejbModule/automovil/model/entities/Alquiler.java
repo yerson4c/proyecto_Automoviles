@@ -3,6 +3,7 @@ package automovil.model.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 
@@ -25,11 +26,13 @@ public class Alquiler implements Serializable {
 	@Column(nullable=false, length=1)
 	private String estado;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable=false)
-	private Timestamp fechafin;
+	private Date fechafin;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable=false)
-	private Timestamp fechainicio;
+	private Date fechainicio;
 
 	@Column(nullable=false, length=50)
 	private String gasolina;
@@ -63,19 +66,24 @@ public class Alquiler implements Serializable {
 		this.estado = estado;
 	}
 
-	public Timestamp getFechafin() {
-		return this.fechafin;
+	
+
+	
+	
+
+	public Date getFechafin() {
+		return fechafin;
 	}
 
-	public void setFechafin(Timestamp fechafin) {
+	public void setFechafin(Date fechafin) {
 		this.fechafin = fechafin;
 	}
 
-	public Timestamp getFechainicio() {
-		return this.fechainicio;
+	public Date getFechainicio() {
+		return fechainicio;
 	}
 
-	public void setFechainicio(Timestamp fechainicio) {
+	public void setFechainicio(Date fechainicio) {
 		this.fechainicio = fechainicio;
 	}
 

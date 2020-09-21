@@ -1,20 +1,110 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+</h:head>
 
 
-	<h:head></h:head> 
-<body> 
+<body >
+	<p:growl>
+		<p:autoUpdate></p:autoUpdate>
+	</p:growl>
 
-<h:outputLabel value="hola mundo 2" />
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Inicio" action="#{beanUsuario.irBitacora()}"
+				update="@form" icon="fa fa-home" />
 
 
-<h:outputLabel value="hola xd DFF" />
-<h1>Proyecto Creado al github s Mony Editado</h1>
+		</p:menubar>
+	</h:form>
 
 
-</body> 
 
+	<p:panel header="Iniciar Sesión" style=" margin: 0 auto;">
+		<h:form>
+			<p:panelGrid columns="2" style=" margin: 0 auto;">
+
+				<!-- 		 <div class="wrap-input100 validate-input" -->
+				<!-- 			data-validate="Valid email is required: ex@abc.xyz">  -->
+				<span class="focus-input100"></span>
+				<span class="symbol-input100"> <i class="fa fa-envelope"
+					aria-hidden="true"></i>
+				</span>
+				<p:inputText class="input100"
+					requiredMessage="El correo es requerido"
+					value="#{beanLogin.correo}" placeholder="Correo" required="true" />
+
+				<!-- 		</div>  -->
+				<!-- 		<div class="wrap-input100 validate-input" 
+			data-validate="Password is required">-->
+				<span class="focus-input100"></span>
+				<span class="symbol-input100"> <i class="fa fa-lock"
+					aria-hidden="true"></i>
+				</span>
+				<p:password class="input100"
+					requiredMessage="La contraseña es requerida"
+					value="#{beanLogin.password}" placeholder="Contraseña" />
+
+				<span class="focus-input100"></span>
+				<span class="symbol-input100"> <i class="fa fa-user"
+					aria-hidden="true"></i>
+				</span>
+				<p:selectOneMenu required="true"
+					requiredMessage="Seleccione el tipo del usuario"
+					value="#{beanLogin.idTipoUsuario}">
+					<f:selectItem itemLabel="Seleccione" itemValue="" />
+					<f:selectItem itemLabel="Administrador" itemValue="1" />
+					<f:selectItem itemLabel="Cliente" itemValue="2" />
+					
+					<f:selectItem itemLabel="Super Administrador" itemValue="4" />
+					<!-- 					<f:selectItems value="#{beanUsuario.listaGenero}" var="r" -->
+					<!-- 						itemLabel="#{r.tipoGenero}" itemValue="#{r.idGenero}" /> -->
+				</p:selectOneMenu>
+
+
+
+
+				<br></br>
+				<p:commandButton value="INGRESAR" icon="fa fa-key"
+					style=" background-color: #2E9AFE;  margin: 0 auto; border-color:#0000FF; border-radius: 25px;"
+					action="#{beanLogin.accederSistema()}" update="mensajes" />
+				<!-- 		</div> -->
+
+			</p:panelGrid>
+
+		</h:form>
+		<h:form id="olvido">
+			<p:commandLink value="Olvidó su contraseña?" icon="fa fa-key"
+				oncomplete="PF('dlgEditar').show();" />
+		</h:form>
+	</p:panel>
+	<p:messages id="mensajes" />
+	<p:dialog header="Recuperar contraseña" widgetVar="dlgEditar">
+		<h:form id="formEditar">
+
+			<p:panelGrid columns="2">
+				<h:outputText value="Ingrese su correo electrónico" />
+				<p:inputText value="#{beanUsuario.usuario.correoUsuario}"
+					maxlength="80">
+				</p:inputText>
+			</p:panelGrid>
+
+			<br />
+<!-- 			<p:commandButton value="Enviar correo" -->
+<!-- 				actionListener="#{beanUsuario.metodoCorreo()}" -->
+<!-- 				oncomplete="PF('dlgEditar').hide();"> -->
+<!-- 			</p:commandButton> -->
+		</h:form>
+
+	</p:dialog>
+
+</body>
 </html>

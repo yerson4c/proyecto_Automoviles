@@ -19,7 +19,7 @@ import automovil.model.manager.ManagerDAO;
  */
 @Stateless
 @LocalBean
-public class ManagerUsuario {
+public class ManagerUsuarioCliente {
 
     /**
      * Default constructor. 
@@ -29,7 +29,7 @@ public class ManagerUsuario {
 @EJB
 private ManagerDAO managerDAO;
 	
-    public ManagerUsuario() {
+    public ManagerUsuarioCliente() {
         // TODO Auto-generated constructor stub
     }
     
