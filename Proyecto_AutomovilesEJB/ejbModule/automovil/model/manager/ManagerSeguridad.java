@@ -56,7 +56,7 @@ public class ManagerSeguridad {
 		
 		if (!usuario.get(0).getClaveUsuario().equals(clave)) {
 			System.out.println(" NO if = " + usuario.get(0).getClaveUsuario() + " = " + clave);
-			throw new Exception("Contraseña incorrecta");
+			throw new Exception("Contraseï¿½a incorrecta");
 		}
 		LoginDTO loginDTO = new LoginDTO();
 		loginDTO.setUsuario(usuario.get(0).getNombreUsuario() + " " + usuario.get(0).getApellidoUsuario());
@@ -81,7 +81,7 @@ public class ManagerSeguridad {
 					loginDTO.setRutaAcceso("/gerente/home.xhtml");
 					
 				} else if (usuarioRol.getRol().getIdRol() == 2) {
-					loginDTO.setRutaAcceso("/cliente/home.xhtml");
+					loginDTO.setRutaAcceso("/cliente/home_cliente.xhtml");
 				
 //				}
 //else if (usuarioRol.getRol().getIdRol() == 3) {
@@ -145,7 +145,7 @@ public class ManagerSeguridad {
 		System.out.println("if = " + usuario.get(0).getClaveUsuario() + " = " + clave);
 		if (!usuario.get(0).getClaveUsuario().equals(clave)) {
 			System.out.println(" NO if = " + usuario.get(0).getClaveUsuario() + " = " + clave);
-			throw new Exception("Contraseña incorrecta");
+			throw new Exception("Contraseï¿½a incorrecta");
 		}
 		LoginDTO loginDTO = new LoginDTO();
 		loginDTO.setUsuario(usuario.get(0).getNombreUsuario() + " " + usuario.get(0).getApellidoUsuario());

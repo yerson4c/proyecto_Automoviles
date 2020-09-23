@@ -9,12 +9,15 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import automovil.model.gerente.*;
+import automovil.controller.gerente.BeanAutomovil;
 import automovil.controller.gerente.JSFUtil;
+import automovil.controller.login.BeanLogin;
 import automovil.model.entities.Alquiler;
+import automovil.model.entities.Automovil;
 import automovil.model.entities.Usuario;
 
 
@@ -31,14 +34,20 @@ public class BeanAlquiler implements Serializable {
 	private List<Alquiler> listaAlquiler;
 	private Alquiler  alquiler;
 	private Integer idAlquier;
+
 	
 	@EJB
 	private ManagerAlquiler managerAlquiler;
-	
+	@EJB
+	private ManagerUsuarioRol managerUsuarioRol;
+	@EJB
+	private ManagerAutomovil managerAuto;
 
-//	@Inject
-//	BeanLogin login;
+	@Inject
+	BeanLogin login;
 
+	@Inject
+	BeanAutomovil beanAuto;
 	
 	
 	@PostConstruct
@@ -55,7 +64,18 @@ public class BeanAlquiler implements Serializable {
 		
 	}
 
-	
+	public void inicializarCliente() {
+		try {
+			listaAlquiler=managerAlquiler.findAllAlquilerByIdUsuario(login.getLoginDTO().getIdRolUsuario());
+			alquiler=new Alquiler();
+			
+			
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError("Error al cargar: ");
+			
+		}
+		
+	}
 	public void actionListenerCargarAlquiler(Alquiler u) {
 		try {
 			alquiler=new Alquiler();
@@ -73,6 +93,32 @@ public class BeanAlquiler implements Serializable {
 		}
 	}
 
+	public void actionListenerAprobarAlquiler(Alquiler alquile) {
+		try {
+			
+				Alquiler u=managerAlquiler.findByIdAlquileres(alquile.getIdAlquiler());
+				u.setAprobado("SI");
+				managerAlquiler.actualizarAlquiler(u);
+				listaAlquiler=managerAlquiler.findAllAlquiler();
+
+				//listaMedida=managerMedida.findAllMedidas();
+				//managerbit.crearEvento("actionListenerActualizarMedida()", "actualiza una medida ");
+				JSFUtil.crearMensajeInfo("Aprobado exitosamente");
+			
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError("Error al aprobar");
+		}
+
+	}
+	
+	public boolean validarBotonAlquiler(String v) {
+		if (v.equals("SI")) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	public void actionListenerActualizarAlquiler() {
 		try {
 			if (alquiler.getEstado().toString().length() > 0) {
@@ -85,7 +131,7 @@ public class BeanAlquiler implements Serializable {
 				u.setRecepcion(alquiler.getRecepcion());
 				u.setObservaciones(alquiler.getObservaciones());
 				managerAlquiler.actualizarAlquiler(u);
-				listaAlquiler=managerAlquiler.findAllAlquiler();
+				listaAlquiler=managerAlquiler.findAllAlquilerByIdUsuario(login.getLoginDTO().getIdRolUsuario());
 
 				//listaMedida=managerMedida.findAllMedidas();
 				//managerbit.crearEvento("actionListenerActualizarMedida()", "actualiza una medida ");
@@ -124,6 +170,8 @@ public class BeanAlquiler implements Serializable {
 				u.setGasolina(alquiler.getGasolina());
 				u.setRecepcion(alquiler.getRecepcion());
 				u.setObservaciones(alquiler.getObservaciones());
+				u.setUsuarioRol(managerUsuarioRol.findByIdUsuarioRol(login.getLoginDTO().getIdRolUsuario()));
+				u.setAutomovil(managerAuto.findByIdAutomovil(beanAuto.getIdAutomovil()));
 				managerAlquiler.insertarAlquiler(u);
 				listaAlquiler=managerAlquiler.findAllAlquiler();
 
@@ -144,7 +192,7 @@ public class BeanAlquiler implements Serializable {
 	public void actionListenerEliminarAlquiler(Integer id) {
 		try {
 			managerAlquiler.eliminarAlquiler(id);
-			listaAlquiler=managerAlquiler.findAllAlquiler();
+			listaAlquiler=managerAlquiler.findAllAlquilerByIdUsuario(login.getLoginDTO().getIdRolUsuario());
 			
 			JSFUtil.crearMensajeInfo("Alquiler ha sido eliminado");
 		} catch (Exception e) {
@@ -155,6 +203,20 @@ public class BeanAlquiler implements Serializable {
 
 	}
 
+	
+	public String irAlquiler() {
+		return "alquiler_cliente";
+	}
+	public String irAutomovilC() {
+		return "automovil_cliente";
+	}
+	 
+
+	public String irHome() {
+		return "home_cliente";
+	}
+
+	
 
 	public List<Alquiler> getListaAlquiler() {
 		return listaAlquiler;
@@ -183,6 +245,26 @@ public class BeanAlquiler implements Serializable {
 
 	public void setIdAlquier(Integer idAlquier) {
 		this.idAlquier = idAlquier;
+	}
+
+
+	public BeanLogin getLogin() {
+		return login;
+	}
+
+
+	public void setLogin(BeanLogin login) {
+		this.login = login;
+	}
+
+
+	public BeanAutomovil getBeanAuto() {
+		return beanAuto;
+	}
+
+
+	public void setBeanAuto(BeanAutomovil beanAuto) {
+		this.beanAuto = beanAuto;
 	}
 	
 

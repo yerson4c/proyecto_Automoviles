@@ -1,5 +1,6 @@
 package automovil.model.gerente;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -35,15 +36,29 @@ private ManagerDAO managerDAO;
     }
     
     @SuppressWarnings("unchecked")
-	public List<Alquiler>findAllAlquiler() throws Exception{
-    	try {        	
-        	return managerDAO.findAll(Alquiler.class);
+	public List<Alquiler>findAllAlquilerByIdUsuario(Integer id) throws Exception{
+    	List<Alquiler>lstAlquiler=new ArrayList<>();
+    	try {   
+    		lstAlquiler=managerDAO.findWhere(Alquiler.class, "o.usuarioRol="+id, null);
+        	return lstAlquiler;
+        	
 		} catch (Exception e) {
 			throw new Exception("No existe registro de alquileres");
 		}
     	
     }
- 
+    @SuppressWarnings("unchecked")
+  	public List<Alquiler>findAllAlquiler() throws Exception{
+      	List<Alquiler>lstAlquiler=new ArrayList<>();
+      	try {   
+      		lstAlquiler=managerDAO.findAll(Alquiler.class);
+      		return lstAlquiler;
+          	
+  		} catch (Exception e) {
+  			throw new Exception("No existe registro de alquileres");
+  		}
+      	
+      }
     public Alquiler findByIdAlquileres(Integer id) {
     	
     	try {

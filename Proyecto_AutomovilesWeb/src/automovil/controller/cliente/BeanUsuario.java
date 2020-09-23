@@ -174,7 +174,7 @@ public class BeanUsuario implements Serializable {
 					listaUsuario=managerUsuario.findAllUsuarios();
 					
 					
-					JSFUtil.crearMensajeInfo("Usuario creado correctamente, por favor iniciar sesión");
+					JSFUtil.crearMensajeInfo("Usuario creado correctamente, por favor iniciar sesiï¿½n");
 					return "login";
 				} else {
 					JSFUtil.crearMensajeError("Error al crear: Ya existe registro con ese correo");
@@ -186,11 +186,11 @@ public class BeanUsuario implements Serializable {
 								return "";
 							}
 						} else {
-							JSFUtil.crearMensajeError("Debe ingresar una cédula válida");
+							JSFUtil.crearMensajeError("Debe ingresar una cï¿½dula vï¿½lida");
 							return "";
 						}
 					} else {
-						JSFUtil.crearMensajeError("Debe ingresar un correo válido");
+						JSFUtil.crearMensajeError("Debe ingresar un correo vï¿½lido");
 						return "";
 					}
 				} else {
@@ -198,7 +198,7 @@ public class BeanUsuario implements Serializable {
 					return "";
 				}
 			} else {
-				JSFUtil.crearMensajeError("Debe ingresar la cédula");
+				JSFUtil.crearMensajeError("Debe ingresar la cï¿½dula");
 				return "";
 				 
 			}
@@ -308,54 +308,33 @@ public class BeanUsuario implements Serializable {
 		return "home";
 	}
 
-	public String irBitacora() {
-		
-			return "bitacora";
-		
-	}
-
-	public String irUsuario() {
+	
+	public String irUsuarios() {
 		return "usuario";
 	}
 	public String irCambiarContrasenia() {
 		return "cambiar_contrasenia";
 	}
-	public String irRol() {
-		return "rol";
+	 
+
+	public String irAutomoviles() {
+		return "automovil";
 	}
 
-	public String irMovimientos() {
-		return "movimientos";
+	public String irSolicitudes() {
+		return "alquiler";
 	}
 
-	public String irPuntoVenta() {
-		return "punto_venta";
+	public String irEntregas() {
+		return "entregas";
 	}
 
-	public String irProducto() {
-		return "producto";
+	public String irReportes() {
+		return "reportes";
 	}
-
-	public String irMedida() {
-		return "medida";
+	public String irConfiguraciones() {
+		return "configuraciones";
 	}
-
-	public String irGenero() {
-		return "genero";
-	}
-
-	public String irCategoria() {
-		return "categoria";
-	}
-
-	public String irBodega() {
-		return "bodega";
-	}
-
-	public String irUsuarioRol() {
-		return "usuario_rol";
-	}
-
 	
 
 	

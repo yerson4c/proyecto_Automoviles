@@ -14,6 +14,15 @@
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
+<!-- Bootstrap core CSS -->
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<!-- Custom fonts for this template -->
+<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css" />
+	
+ <link rel="stylesheet" href="../css/style-sesion.css" />
+        <script src="../js/script.js"></script>
+
 	<style>
 
 .old {
@@ -32,6 +41,12 @@
         border-radius: 12%;
         font-family: sans-serif;
 }  
+.manu{
+color:#fff !important;
+font-family:sans-serif;
+background-color: #ffc4c5;
+
+} 
 </style>
 <script  >
  const text="El botón de eliminar estará habilitado cuando no existan registros secundarios del proyecto ";
@@ -54,77 +69,48 @@ setInterval(escribirTexto, 100);
 		<p:autoUpdate></p:autoUpdate>
 	</p:growl>
 	<h:form>
-		<p:menubar>
+		<h:form>
+	
+	
+		<p:menubar style="background-color:rgb(216, 0, 0)">
 
-			<f:facet name="options">
-				<p:outputLabel  ><p id="texto"></p></p:outputLabel>
-<!-- 				<p:outputLabel value="#{beanLogin.correo} | "></p:outputLabel> -->
-<!-- 				<p:commandButton action="#{beanLogin.salirSistema()}" -->
-<!-- 					value="Cerrar sesión" style="background-color:#DF0101" -->
-<!-- 					icon="fa fa-sign-out" /> -->
-			</f:facet>
-		</p:menubar>
+				<p:menuitem value="Inicio" icon="pi pi-home" update="@form" action="#{beanUsuario.irHome()}" class="manu" >
+				 
+				</p:menuitem>
+				<p:menuitem value="Usuarios" icon="pi pi-user" update="@form" action="#{beanUsuario.irUsuarios()}"  class="manu" >
+				 
+				</p:menuitem>
+				<p:menuitem value="Automóviles" icon="pi pi-star" update="@form"  action="#{beanUsuario.irAutomoviles()}"  class="manu" >
+				 
+				</p:menuitem>
+				<p:menuitem value="Solicitudes" icon="pi pi-calendar-plus" update="@form" action="#{beanUsuario.irSolicitudes()}"  class="manu" >
+				 
+				</p:menuitem>
+				<p:menuitem value="Entregas" icon="pi pi-eye" update="@form" action="#{beanUsuario.irEntregas()}" class="manu" >
+				 
+				</p:menuitem>
+				<p:menuitem value="Reportes" icon="pi pi-chart-line" update="@form" action="#{beanUsuario.irReportes()}" class="manu" >
+				 
+				</p:menuitem>
+				<p:menuitem  value="Configuraciones" icon="pi pi-cog" update="@form" action="#{beanUsuario.irConfiguraciones()}" class="manu" > 
+				 
+				</p:menuitem>
+			  <f:facet name="options">
+			  	
+				<p:outputLabel style="color:white" value="#{beanLogin.correo} | Gerente..  "></p:outputLabel>
+				<p:commandButton style="background-color:red" action="#{beanLogin.salirSistema()}"
+					value="Cerrar sesión" 
+					icon="pi pi-power-off" />
+				</f:facet>	
+			
+	</p:menubar>	
+	
 	</h:form>
-	<p:panel header="AUTOMÓVIL">
+	</h:form>
+	<p:panel header="USUARIOS">
 		<div class="ui-g" style="margin-top: 20px;">
-
-			<div class="ui-g-12 ui-md-2 ui-lg-2">
-				<h:form>
-				 <p:panelMenu>
-						<p:submenu label="Usuario">
-							<p:menuitem value="Usuario" action="#{beanUsuario.irUsuario()}"
-								update="@form" icon="fa fa-user" />
-							<p:menuitem value="Rol" action="#{beanUsuario.irRol()}"
-								update="@form" icon="fa fa-address-book" />
-							<p:menuitem value="Género" action="#{beanUsuario.irGenero()}"
-								update="@form" icon="fa fa-address-card" />
-							<p:menuitem value="Usuario - Rol"
-								action="#{beanUsuario.irUsuarioRol()}" update="@form"
-								icon="fa fa-book" />
-
-						</p:submenu>
-						<p:submenu label="Producto">
-							<p:menuitem value="Producto" action="#{beanUsuario.irProducto()}"
-								update="@form" icon="fa fa-shopping-cart" />
-							<p:menuitem value="Medida" action="#{beanUsuario.irMedida()}"
-								update="@form" icon="fa fa-archive" />
-							<p:menuitem value="Categoría"
-								action="#{beanUsuario.irCategoria()}" update="@form"
-								icon="fa fa-clipboard" />
-
-						</p:submenu>
-						<p:submenu label="Bodega">
-							<p:menuitem value="Bodega" action="#{beanUsuario.irBodega()}"
-								update="@form" icon="fa fa-columns" />
-							<p:menuitem value="Punto de venta "
-								action="#{beanUsuario.irPuntoVenta()}" update="@form"
-								icon="fa fa-building" />
-							<p:menuitem value="Categoría"
-								action="#{beanUsuario.irCategoria()}" update="@form"
-								icon="fa fa-clipboard" />
-							<p:menuitem value="Movimientos"
-								action="#{beanUsuario.irMovimientos()}" update="@form"
-								icon="fa fa-compress" />
-						</p:submenu>
-						<p:separator />
-						
-						<p:separator />
-						<p:submenu label="Opciones" icon="fa fa-cog">
-							<p:menuitem value="Cambiar contraseña"
-								action="#{beanUsuario.irCambiarContrasenia()}" update="@form"
-								icon="fa fa-key" />
-
-							<p:menuitem value="Cerrar sesión"
-								action="#{beanLogin.salirSistema()}" update="@form"
-								icon="fa fa-sign-out" />
-
-						</p:submenu>
-
-					</p:panelMenu>
-				</h:form>
-			</div>
-
-			<div class="ui-g-12 ui-md-10 ui-lg-10">
+		
+			<div class="ui-g-12 ui-md-12 ui-lg-12">
 				<h:form id="form">
 					<p:commandButton icon="fa fa-plus-square"
 						style="margin-right: 90%;" value="  Nuevo" update="formCrear"
@@ -255,7 +241,7 @@ setInterval(escribirTexto, 100);
 			</p:panelGrid>
 			<br />
 			<p:commandButton value="Crear" update="form"
-				actionListener="#{beanUsuario.actionListenerInsertarUsuario()}"
+				actionListener="#{beanUsuario.actionInsertarUsuario()}"
 				oncomplete="PF('dlgCrear').hide();">
 			</p:commandButton>
 		</h:form>
@@ -330,5 +316,99 @@ setInterval(escribirTexto, 100);
 		<p:commandButton value="No" type="button"
 			styleClass="ui-confirmdialog-no" icon="ui-icon-closethick" />
 	</p:confirmDialog>
+	
+	<!-- Footer -->
+	<footer class="footer">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-md-4">
+				<span class="copyright">Copyright 2020</span>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline social-buttons">
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-twitter"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-facebook-f"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-linkedin-in"></i>
+					</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline quicklinks">
+					<li class="list-inline-item"><a href="#"></a></li>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+	</footer>
+	
+  <!-- Footer Links -->
+  <div class="footer-links">
+    <div class="footer-container">
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Empresa</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Acerca de nosotros</a>
+        </li>
+        <li>
+          <a href="#">Política de privacidad</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Colaboración</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Términos de servicio</a>
+        </li>
+        <li>
+          <a href="#">Programa de afiliación</a>
+        </li>
+       
+      </ul>
+       <ul>
+        <li>
+          <a href="#">
+            <h2>Más</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Preguntas frecuentes</a>
+        </li>
+        <li>
+          <a href="#">Garantía del Mejor Precio</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+           <img width="300" src="../img/portfolio/descarga.png"></img>
+          </a>
+        </li>
+      
+       
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h4>Alquiler de autos Ecuador - Copyright</h4>
+  </footer>
+
+	
 </body>
 </html>

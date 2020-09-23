@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+		<f:event listener="#{beanLogin.actionVerificarLogin()}"
+			type="preRenderView"></f:event>
+		
+	</f:metadata>
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+<!-- Bootstrap core CSS -->
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<!-- Custom fonts for this template -->
+<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css" />
+	
+ <link rel="stylesheet" href="../css/style-sesion.css" />
+        <script src="../js/script.js"></script>
+
+	<style>
+
+.old {
+        background-color: #00B53D !important;
+        background-image: none !important;
+        color: #FFFF !important;
+        padding: 5px;
+        border-radius: 12%;
+        font-family: sans-serif;
+    }
+   .bold{
+   font-weight: bold;
+   } 
+.bad{
+	  background-color: #F33E2B !important;
+        background-image: none !important;
+        color: #FFFF !important;
+        padding: 5px;
+        border-radius: 12%;
+        font-family: sans-serif;
+}  
+
+.movie-info {
+    background-color: #4f0000;
+    border-radius: 3px;
+    font-weight: bold;
+    padding: 0.25rem 0.5rem;
+}
+.span {
+    background-color: red;
+    border-radius: 3px;
+    font-weight: bold;
+    color:white;
+    padding: 0.25rem 0.5rem;
+}
+.manu{
+color:#fff !important;
+font-family:sans-serif;
+background-color: #ffc4c5;
+
+} 
+</style>
+<script  >
+ const text="El botón de eliminar estará habilitado cuando no existan registros secundarios del proyecto ";
+let index=0;
+function escribirTexto() {
+	
+	document.getElementById("texto").innerHTML=text.slice(0,index);
+	index++;
+	if (index>text.length) {
+		index=0;
+	}
+}
+setInterval(escribirTexto, 100); 
+</script>
+
+</h:head>
+
+<body onload="#{beanAutomovil.inicializar()} #{beanAlquiler.inicializar()}">
+	<p:growl>
+		<p:autoUpdate></p:autoUpdate>
+	</p:growl>
+	<h:form>
+	
+	
+		<p:menubar style="background-color:rgb(216, 0, 0)">
+
+			
+			  <p:menuitem  >
+				<img src="../img/portfolio/renta.png" style="margin-rigth: 90%" class="img-fluid" width="250" alt="" />
+			</p:menuitem> 
+				<p:menuitem value="Inicio" icon="pi pi-home" action="#{beanAlquiler.irHome()}" class="manu" ></p:menuitem>
+				<p:menuitem value="Automóviles" icon="pi pi-star"  action="#{beanAlquiler.irAutomovilC()}"  class="manu" ></p:menuitem>
+				<p:menuitem value="Mis rentas" icon="pi pi-list"  action="#{beanAlquiler.irAlquiler()}"  class="manu" ></p:menuitem>
+				<p:menuitem  value="Configuraciones" icon="pi pi-cog" class="manu" > 
+				 
+				</p:menuitem>
+			  <f:facet name="options">
+			  	<br></br>
+				<p:outputLabel style="color:white" value="#{beanLogin.correo} | Usuario   "></p:outputLabel>
+				<p:commandButton style="background-color:red" action="#{beanLogin.salirSistema()}"
+					value="Cerrar sesión" 
+					icon="pi pi-power-off" />
+				</f:facet>	
+			
+	</p:menubar>		
+	
+	</h:form>
+	<p:panel header="AUTOMÓVILES">
+		<div class="ui-g" style="margin-top: 20px;">
+			<div class="ui-g-12 ui-md-12 ui-lg-12">
+				<h:form id="form">
+					 <p:dataGrid var="car" value="#{beanAutomovil.listaAutomovil}" columns="3" layout="grid">
+					    <p:panel header="#{car.modelo}" style="text-align:center">
+				            <h:panelGrid columns="1" style="width:100%">
+				            <div >
+				              <h:graphicImage value="data:image/jpg;base64,#{car.foto}" class="img-fluid" width="300"/> 
+				            	<div class="movie-info">
+									<h:outputText value="#{car.marca}" />
+									<h:outputText class="span" value="#{car.precio}$" />
+								</div>
+								
+							</div>
+				                <h:outputText value="Año: #{car.anio}" />
+								 <p:commandButton  value="Especificaciones" update=":formEditar"
+								title="Especificaciones"
+								actionListener="#{beanAutomovil.actionListenerCargarAutomovil(car)}"
+								oncomplete="PF('dlgEditar').show();">
+							</p:commandButton>
+								  
+				                
+				            </h:panelGrid>
+				        </p:panel>
+					 
+					 </p:dataGrid>
+					 
+				</h:form>
+			</div>
+
+		</div>
+
+
+	</p:panel>
+
+	
+
+	<p:dialog header="Especificaciones " widgetVar="dlgEditar">
+		<h:form id="formEditar">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+
+			<p:panelGrid columns="4">
+			
+				<h:outputText value="Modelo" class="bold"/>
+				<h:outputText value="#{beanAutomovil.automovil.modelo}" />
+				
+				<h:outputText value="Placa" class="bold" />
+				<h:outputText value="#{beanAutomovil.automovil.placa}" />
+				
+				<h:outputText value="Marca" class="bold" />
+				<h:outputText value="#{beanAutomovil.automovil.marca}" />
+				
+				<h:outputText value="Año" class="bold" />
+				
+				<h:outputText value="#{beanAutomovil.automovil.anio}" />
+				
+				
+				<h:outputText value="Color" class="bold" />
+				<h:outputText value="#{beanAutomovil.automovil.color}" />
+				
+				<h:outputText value="Descripción" class="bold"/>
+				<h:outputText value="#{beanAutomovil.automovil.descripcion}" />
+				
+				<h:outputText value="Precio" class="bold" />
+					<h:outputText value="#{beanAutomovil.automovil.precio} $" />
+			</p:panelGrid>
+			<br />
+			<p:commandButton value="Alquilar" update="formAlquilar"
+				
+				oncomplete="PF('dlgEditar').hide();PF('dlgAlquilar').show();">
+			</p:commandButton>
+		</h:form>
+
+	</p:dialog>
+
+<p:dialog header="Alquilar" widgetVar="dlgAlquilar">
+		<h:form id="formAlquilar">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+
+			<p:panelGrid columns="2">
+				
+				<h:outputText value="Fecha inicio" />
+				<p:calendar  value="#{beanAutomovil.alquiler.fechainicio}"
+					requiredMessage="Fecha inicio es requerida" required="true"  pattern="MM/dd/yyyy HH:mm:ss" >
+				
+				</p:calendar>
+				<h:outputText value="Fecha fin" />
+				<p:calendar  value="#{beanAutomovil.alquiler.fechafin}"
+					requiredMessage="Fecha fin es requerida" required="true"  pattern="MM/dd/yyyy HH:mm:ss" >
+				
+				</p:calendar>
+				
+				
+				<h:outputText value="Gasolina" />
+				<p:inputText value="#{beanAutomovil.alquiler.gasolina}"
+					requiredMessage="La gasolina es requerida" required="true">
+				</p:inputText>
+				<h:outputText value="Recepcion" />
+				<p:inputText value="#{beanAutomovil.alquiler.recepcion}"
+					requiredMessage="La recepción es requerida" required="true">
+				</p:inputText>
+				<h:outputText value="Observaciones" />
+				<p:inputTextarea value="#{beanAutomovil.alquiler.observaciones}"
+					requiredMessage="las observaciones son requeridas" required="true">
+				</p:inputTextarea>
+				
+			</p:panelGrid>
+			<br />
+			<p:commandButton value="Alquilar auto" update="form"
+				actionListener="#{beanAutomovil.actionListenerInsertarAlquiler()}"
+				oncomplete="PF('dlgAlquilar').hide();">
+			</p:commandButton>
+		</h:form>
+
+	</p:dialog>
+
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Sí" type="button"
+			styleClass="ui-confirmdialog-yes" update="form" icon="ui-icon-check" />
+		<p:commandButton value="No" type="button"
+			styleClass="ui-confirmdialog-no" icon="ui-icon-closethick" />
+	</p:confirmDialog>
+	
+	
+	
+	<!-- Footer -->
+	<footer class="footer">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-md-4">
+				<span class="copyright">Copyright 2020</span>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline social-buttons">
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-twitter"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-facebook-f"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-linkedin-in"></i>
+					</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline quicklinks">
+					<li class="list-inline-item"><a href="#"></a></li>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+	</footer>
+	
+  <!-- Footer Links -->
+  <div class="footer-links">
+    <div class="footer-container">
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Empresa</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Acerca de nosotros</a>
+        </li>
+        <li>
+          <a href="#">Política de privacidad</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Colaboración</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Términos de servicio</a>
+        </li>
+        <li>
+          <a href="#">Programa de afiliación</a>
+        </li>
+       
+      </ul>
+       <ul>
+        <li>
+          <a href="#">
+            <h2>Más</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Preguntas frecuentes</a>
+        </li>
+        <li>
+          <a href="#">Garantía del Mejor Precio</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+           <img width="300" src="../img/portfolio/descarga.png"></img>
+          </a>
+        </li>
+      
+       
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h4>Alquiler de autos Ecuador - Copyright</h4>
+  </footer>
+
+
+
+	
+</body>
+
+
+
+</html>

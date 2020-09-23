@@ -87,11 +87,11 @@ public class BeanLogin implements Serializable {
 					System.out.println("Redireccionado " + loginDTO.getRutaAcceso());
 					return loginDTO.getRutaAcceso() + "?faces-redirect=true";
 				} else {
-					JSFUtil.crearMensajeError("ERROR : Debe ingresar un correo válido");
+					JSFUtil.crearMensajeError("ERROR : Debe ingresar un correo vï¿½lido");
 				}
 				
 			}else {
-				JSFUtil.crearMensajeError("ERROR : Debe ingresar su correo y contraseña");
+				JSFUtil.crearMensajeError("ERROR : Debe ingresar su correo y contraseï¿½a");
 			}
 		
 		} catch (Exception e) {
@@ -114,7 +114,7 @@ public class BeanLogin implements Serializable {
 				showDo = true;
 			}
 		}
-		loginDTO.setRutaAcceso("/super_admin/home.xhtml");
+		loginDTO.setRutaAcceso("/gerente/home.xhtml");
 		return showDo;
 	}
 
@@ -129,7 +129,7 @@ public class BeanLogin implements Serializable {
 				showDo = true;
 			}
 		}
-		loginDTO.setRutaAcceso("/admin/index.xhtml");
+		loginDTO.setRutaAcceso("/cliente/index.xhtml");
 		return showDo;
 	}
 

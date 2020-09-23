@@ -95,7 +95,7 @@ setInterval(escribirTexto, 100);
 
 </h:head>
 
-<body onload="#{beanAlquiler.inicializar()}">
+<body onload="#{beanAlquiler.inicializarCliente()}">
 	<p:growl>
 		<p:autoUpdate></p:autoUpdate>
 	</p:growl>
@@ -104,23 +104,19 @@ setInterval(escribirTexto, 100);
 	
 	<p:menubar style="background-color:rgb(216, 0, 0)">
 
-				<p:menuitem value="Inicio" icon="pi pi-home" update="@form" action="#{beanUsuario.irHome()}" class="manu" >
-				</p:menuitem>
-				<p:menuitem value="Usuarios" icon="pi pi-user" update="@form" action="#{beanUsuario.irUsuarios()}"  class="manu" >
-				</p:menuitem>
-				<p:menuitem value="Automóviles" icon="pi pi-star" update="@form"  action="#{beanUsuario.irAutomoviles()}"  class="manu" >
-				</p:menuitem>
-				<p:menuitem value="Solicitudes" icon="pi pi-calendar-plus" update="@form" action="#{beanUsuario.irSolicitudes()}"  class="manu" >
-				</p:menuitem>
-				<p:menuitem value="Entregas" icon="pi pi-eye" update="@form" action="#{beanUsuario.irEntregas()}" class="manu" >
-				</p:menuitem>
-				<p:menuitem value="Reportes" icon="pi pi-chart-line" update="@form" action="#{beanUsuario.irReportes()}" class="manu" >
-				</p:menuitem>
-				<p:menuitem  value="Configuraciones" icon="pi pi-cog" update="@form" action="#{beanUsuario.irConfiguraciones()}" class="manu" > 
+			
+			  <p:menuitem  >
+				<img src="../img/portfolio/renta.png" style="margin-rigth: 90%" class="img-fluid" width="250" alt="" />
+			</p:menuitem> 
+				<p:menuitem value="Inicio" icon="pi pi-home" action="#{beanAlquiler.irHome()}" class="manu" ></p:menuitem>
+				<p:menuitem value="Automóviles" icon="pi pi-star"  action="#{beanAlquiler.irAutomovilC()}"  class="manu" ></p:menuitem>
+				<p:menuitem value="Mis rentas" icon="pi pi-list"  action="#{beanAlquiler.irAlquiler()}"  class="manu" ></p:menuitem>
+				<p:menuitem  value="Configuraciones" icon="pi pi-cog" class="manu" > 
+				 
 				</p:menuitem>
 			  <f:facet name="options">
-			  	
-				<p:outputLabel style="color:white" value="#{beanLogin.correo} | Gerente..  "></p:outputLabel>
+			  	<br></br>
+				<p:outputLabel style="color:white" value="#{beanLogin.correo} | Usuario   "></p:outputLabel>
 				<p:commandButton style="background-color:red" action="#{beanLogin.salirSistema()}"
 					value="Cerrar sesión" 
 					icon="pi pi-power-off" />
@@ -128,7 +124,7 @@ setInterval(escribirTexto, 100);
 			
 	</p:menubar>
 	</h:form>
-	<p:panel header="SOLICITUDES DE ALQUILER">
+	<p:panel header="MIS SOLICITUDES DE ALQUILER">
 		<div class="ui-g" style="margin-top: 20px;">
 
 			
@@ -169,25 +165,26 @@ setInterval(escribirTexto, 100);
 							</p:outputLabel>
 						
 						</p:column>
-						
-						<p:column headerText="Aprobado" sortBy="#{c.aprobado}">
+						<p:column headerText="Aprobado" sortBy="#{c.estado}">
 							<p:outputLabel 
 							value="#{c.aprobado}"
-							styleClass="#{c.aprobado eq 'NO'?'red': 'green' }">
+							styleClass="#{c.aprobado eq 'SI'?'green':'red'}">
 							</p:outputLabel>
 						
-						</p:column>
-									
-						<p:column headerText="Aprobar solicitud">
-							<p:commandButton icon="fa fa-check" rendered="#{beanAlquiler.validarBotonAlquiler(c.aprobado)}"
-								title="Aprobar" update="form"
-								actionListener="#{beanAlquiler.actionListenerAprobarAlquiler(c)}"
-								oncomplete="PF('dlgEliminar').show();">
-								<p:confirm header="Confirmación" message="¿Desea aprobar?"
-									icon="fa fa-info"></p:confirm>
+						</p:column>			
+						<p:column headerText="Opciones">
+							<p:commandButton icon="fa fa-edit" update=":formEditar"
+								title="Editar"
+								actionListener="#{beanAlquiler.actionListenerCargarAlquiler(c)}"
+								oncomplete="PF('dlgEditar').show();">
 							</p:commandButton>
 
-							
+							<p:commandButton update="form" icon="fa fa-trash"
+								title="Eliminar"
+								actionListener="#{beanAlquiler.actionListenerEliminarAlquiler(c.idAlquiler)}">
+								<p:confirm header="Confirmación" message="¿Desea eliminar?"
+									icon="fa fa-info"></p:confirm>
+							</p:commandButton>
 						</p:column>
 					</p:dataTable>
 
@@ -404,7 +401,103 @@ setInterval(escribirTexto, 100);
     <h4>Alquiler de autos Ecuador - Copyright</h4>
   </footer>
 
-	
+
+
 	
 </body>
+
+
+<!-- Footer -->
+	<footer class="footer">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-md-4">
+				<span class="copyright">Copyright 2020</span>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline social-buttons">
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-twitter"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-facebook-f"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-linkedin-in"></i>
+					</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline quicklinks">
+					<li class="list-inline-item"><a href="#"></a></li>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+	</footer>
+	
+  <!-- Footer Links -->
+  <div class="footer-links">
+    <div class="footer-container">
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Empresa</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Acerca de nosotros</a>
+        </li>
+        <li>
+          <a href="#">Política de privacidad</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Colaboración</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Términos de servicio</a>
+        </li>
+        <li>
+          <a href="#">Programa de afiliación</a>
+        </li>
+       
+      </ul>
+       <ul>
+        <li>
+          <a href="#">
+            <h2>Más</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Preguntas frecuentes</a>
+        </li>
+        <li>
+          <a href="#">Garantía del Mejor Precio</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+           <img width="300" src="../img/portfolio/descarga.png"></img>
+          </a>
+        </li>
+      
+       
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h4>Alquiler de autos Ecuador - Copyright</h4>
+  </footer>
+
+
 </html>

@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Base64;
 import java.util.Calendar;
 
@@ -18,13 +19,19 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.imageio.ImageIO;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
+import automovil.controller.cliente.BeanAlquiler;
+import automovil.controller.login.BeanLogin;
+import automovil.model.entities.Alquiler;
 import automovil.model.entities.Automovil;
+import automovil.model.gerente.ManagerAlquiler;
 import automovil.model.gerente.ManagerAutomovil;
+import automovil.model.gerente.ManagerUsuarioRol;
 import sun.misc.BASE64Encoder;
 
 
@@ -44,11 +51,23 @@ public class BeanAutomovil implements Serializable {
     private RenderedImage renderedImg;
 	private InputStream inputstream;
 	private FileInputStream inputFile;
-    
+    private Alquiler alquiler;
+	
 	@EJB
 	private ManagerAutomovil managerAutomovil;
 	
+	@EJB
+	private ManagerUsuarioRol managerUsuarioRol;
 
+	@EJB
+	private ManagerAlquiler managerAlquiler;
+
+	@Inject
+	BeanLogin login;
+
+	@Inject
+	BeanAutomovil beanAuto;
+	
 //	@Inject
 //	BeanLogin login;
 
@@ -61,6 +80,8 @@ public class BeanAutomovil implements Serializable {
 	@PostConstruct
 	public void inicializar() {
 		try {
+			
+			alquiler=new Alquiler();
 			listaAutomovil=managerAutomovil.findAllAutomovil();
 			automovil=new Automovil();
 		} catch (Exception e) {
@@ -89,28 +110,59 @@ public class BeanAutomovil implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void actionListenerInsertarAlquiler() {
+		try {
+//			if (alquiler.getEstado().toString().length() > 0) {
+				
+				Alquiler u=new Alquiler();
+				
+				u.setFechainicio(new Timestamp(alquiler.getFechainicio().getTime()));
+				u.setFechafin(new Timestamp(alquiler.getFechafin().getTime()));
+				u.setEstado("A");
+				u.setAprobado("NO");
+				u.setGasolina(alquiler.getGasolina());
+				u.setRecepcion(alquiler.getRecepcion());
+				u.setObservaciones(alquiler.getObservaciones());
+				u.setUsuarioRol(managerUsuarioRol.findByIdUsuarioRol(login.getLoginDTO().getIdRolUsuario()));
+				u.setAutomovil(managerAutomovil.findByIdAutomovil(automovil.getIdAutomovil()));
+				managerAlquiler.insertarAlquiler(u);
+				
+
+				//listaMedida=managerMedida.findAllMedidas();
+				//managerbit.crearEvento("actionListenerActualizarMedida()", "actualiza una medida ");
+				JSFUtil.crearMensajeInfo("Alquilado exitosamente");
+//			} else {
+//				JSFUtil.crearMensajeError("Debe ingresar el estado"); 
+//			}		
+			
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError("Error al insertar");
+		}
+
+	}
 
 	public void actionListenerActualizarAutomovil() {
 		try {
 			BufferedImage image = null;
 			if (uploadedFile != null && uploadedFile.getSize() > 0) {
-				if (uploadedFile.getFileName().matches(".*\\.(png|jpeg|jpg|gif)$")) {
-					image = ImageIO.read(uploadedFile.getInputstream());
-				} else {
-					JSFUtil.crearMensajeError("Seleccione una imagen con los siguientes formatos: png, jpeg, jpg, gif");
-					return;
-				}
+//				if (uploadedFile.getFileName().matches(".*\\.(png|jpeg|jpg|gif)$")) {
+//					image = ImageIO.read(uploadedFile.getInputstream());
+//				} else {
+//					JSFUtil.crearMensajeError("Seleccione una imagen con los siguientes formatos: png, jpeg, jpg, gif");
+//					return;
+//				}
 			} else {
 				System.out.println(System.getProperty("user.dir"));
 
-				InputStream inputstream = new FileInputStream("d:\\foto\\foto.png");
+				InputStream inputstream = new FileInputStream("d:\\foto\\foto.jpg");
 
 				image = ImageIO.read(inputstream);
 			}
 			
 			if (automovil.getPlaca().toString().length() > 0) {
 				Automovil a=managerAutomovil.findByIdAutomovil(automovil.getIdAutomovil());
-				String cod64 = encodeToString(image, "png");
+				String cod64 = encodeToString(image, "jpg");
 				
 				a.setAnio(automovil.getAnio());
 				a.setColor(automovil.getColor());
@@ -151,7 +203,7 @@ public class BeanAutomovil implements Serializable {
 	}
 
 	/***
-	 * Método de ingreso de Imagen
+	 * Mï¿½todo de ingreso de Imagen
 	 * @param event 
 	 * @throws IOException 
 	 * */
@@ -221,7 +273,7 @@ public class BeanAutomovil implements Serializable {
 			} else {
 				System.out.println(System.getProperty("user.dir"));
 
-				InputStream inputstream = new FileInputStream("d:\\foto\\productos.png");
+				InputStream inputstream = new FileInputStream("d:\\foto\\foto.jpg");
 
 				image = ImageIO.read(inputstream);
 			}
@@ -551,6 +603,36 @@ public class BeanAutomovil implements Serializable {
 	 */
 	public void setInputFile(FileInputStream inputFile) {
 		this.inputFile = inputFile;
+	}
+
+
+	public Alquiler getAlquiler() {
+		return alquiler;
+	}
+
+
+	public void setAlquiler(Alquiler alquiler) {
+		this.alquiler = alquiler;
+	}
+
+
+	public BeanLogin getLogin() {
+		return login;
+	}
+
+
+	public void setLogin(BeanLogin login) {
+		this.login = login;
+	}
+
+
+	public BeanAutomovil getBeanAuto() {
+		return beanAuto;
+	}
+
+
+	public void setBeanAuto(BeanAutomovil beanAuto) {
+		this.beanAuto = beanAuto;
 	}
 
 
