@@ -21,21 +21,16 @@ public class EstadoAlquiler implements Serializable {
 	@Column(name="id_estado", unique=true, nullable=false)
 	private Integer idEstado;
 
+	@Column(length=1)
+	private String entregado;
+
 	@Column(name="fecha_recepcion", nullable=false)
 	private Timestamp fechaRecepcion;
-
-	@Column(name="id_gerente", nullable=false)
-	private Integer idGerente;
 
 	//bi-directional many-to-one association to Alquiler
 	@ManyToOne
 	@JoinColumn(name="id_alquiler", nullable=false)
 	private Alquiler alquiler;
-
-	//bi-directional many-to-one association to Automovil
-	@ManyToOne
-	@JoinColumn(name="id_automovil", nullable=false)
-	private Automovil automovil;
 
 	//bi-directional many-to-one association to UsuarioRol
 	@ManyToOne
@@ -53,6 +48,14 @@ public class EstadoAlquiler implements Serializable {
 		this.idEstado = idEstado;
 	}
 
+	public String getEntregado() {
+		return this.entregado;
+	}
+
+	public void setEntregado(String entregado) {
+		this.entregado = entregado;
+	}
+
 	public Timestamp getFechaRecepcion() {
 		return this.fechaRecepcion;
 	}
@@ -61,28 +64,12 @@ public class EstadoAlquiler implements Serializable {
 		this.fechaRecepcion = fechaRecepcion;
 	}
 
-	public Integer getIdGerente() {
-		return this.idGerente;
-	}
-
-	public void setIdGerente(Integer idGerente) {
-		this.idGerente = idGerente;
-	}
-
 	public Alquiler getAlquiler() {
 		return this.alquiler;
 	}
 
 	public void setAlquiler(Alquiler alquiler) {
 		this.alquiler = alquiler;
-	}
-
-	public Automovil getAutomovil() {
-		return this.automovil;
-	}
-
-	public void setAutomovil(Automovil automovil) {
-		this.automovil = automovil;
 	}
 
 	public UsuarioRol getUsuarioRol() {

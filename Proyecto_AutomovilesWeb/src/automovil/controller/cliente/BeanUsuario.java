@@ -1,8 +1,11 @@
 package automovil.controller.cliente;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -13,6 +16,7 @@ import javax.inject.Named;
 import automovil.model.gerente.*;
 import automovil.controller.gerente.JSFUtil;
 import automovil.model.entities.Usuario;
+import automovil.model.entities.UsuarioRol;
 
 
 
@@ -33,7 +37,12 @@ public class BeanUsuario implements Serializable {
 	@EJB
 	private ManagerUsuario managerUsuario;
 	
-
+	@EJB
+	private ManagerUsuarioRol managerUsuarioRol;
+	
+	@EJB
+	private ManagerRol managerRol;
+	
 //	@Inject
 //	BeanLogin login;
 
@@ -96,7 +105,7 @@ public class BeanUsuario implements Serializable {
 
 				//listaMedida=managerMedida.findAllMedidas();
 				//managerbit.crearEvento("actionListenerActualizarMedida()", "actualiza una medida ");
-				JSFUtil.crearMensajeInfo("Actualizado con Ã©xito");
+				JSFUtil.crearMensajeInfo("Actualizado  exitosamente");
 			} else {
 				JSFUtil.crearMensajeError("Debe ingresar la placa"); 
 			}
@@ -124,10 +133,21 @@ public class BeanUsuario implements Serializable {
 		
 	}
 
-	public void actionListenerInsertarUsuario() {
+	public String actionInsertarUsuario() {
 		try {
 			if (usuario.getCedulaUsuario().toString().length() > 0) {
-				
+				if (usuario.getNombreUsuario().length() > 0 && !usuario.getCedulaUsuario().isEmpty()
+						&& !usuario.getCorreoUsuario().isEmpty()) {
+					if (usuario.getCorreoUsuario().matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+							+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
+						if (validarCedula(usuario.getCedulaUsuario())) {
+							SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+							sdf.format(usuario.getFechaNacUsuario());
+
+							if (CalcularEdad(new GregorianCalendar(sdf.getCalendar().get(Calendar.YEAR),
+									sdf.getCalendar().get(Calendar.MONTH),
+									sdf.getCalendar().get(Calendar.DAY_OF_MONTH))) >= 17) {
+
 				Usuario u=new Usuario();
 				
 				u.setApellidoUsuario(usuario.getApellidoUsuario());
@@ -139,18 +159,56 @@ public class BeanUsuario implements Serializable {
 				u.setGenero(usuario.getGenero());
 				u.setNombreUsuario(usuario.getNombreUsuario());
 				u.setTelefonoUsuario(usuario.getTelefonoUsuario());
-				managerUsuario.insertarUsuario(u);
-				listaUsuario=managerUsuario.findAllUsuarios();
 				
-				JSFUtil.crearMensajeInfo("Insertado con Ã©xito");
+				List<Usuario>lstUsuario=managerUsuario.findWhereCorreoUsuario(usuario.getCorreoUsuario());
+				if (lstUsuario.size()==0) {
+					managerUsuario.insertarUsuario(u);
+					listaUsuario=managerUsuario.findAllUsuarios();
+					
+					List<Usuario> lstUsu=managerUsuario.findWhereCorreoUsuario(usuario.getCorreoUsuario());
+					UsuarioRol urol=new UsuarioRol();
+					urol.setUsuario(managerUsuario.findByIdUsuario(lstUsu.get(0).getIdUsuario()));
+					urol.setRol(managerRol.findByIdRol(2));
+					managerUsuarioRol.insertarUsuarioRol(urol);
+					
+					listaUsuario=managerUsuario.findAllUsuarios();
+					
+					
+					JSFUtil.crearMensajeInfo("Usuario creado correctamente, por favor iniciar sesión");
+					return "login";
+				} else {
+					JSFUtil.crearMensajeError("Error al crear: Ya existe registro con ese correo");
+					return "";
+				}
+				
+							} else {
+								JSFUtil.crearMensajeError("El usuario debe ser mayor de edad");
+								return "";
+							}
+						} else {
+							JSFUtil.crearMensajeError("Debe ingresar una cédula válida");
+							return "";
+						}
+					} else {
+						JSFUtil.crearMensajeError("Debe ingresar un correo válido");
+						return "";
+					}
+				} else {
+					JSFUtil.crearMensajeError("Debe ingresar todos los campos");
+					return "";
+				}
 			} else {
-				JSFUtil.crearMensajeError("Debe ingresar la cÃ©dula"); 
+				JSFUtil.crearMensajeError("Debe ingresar la cédula");
+				return "";
+				 
 			}
 
 		} catch (Exception e) {
-			JSFUtil.crearMensajeError("Error al insertar");
+			JSFUtil.crearMensajeError("Error al insertar: "+e.getMessage() );
+			return "";
+			
 		}
-
+		
 	}
 	
 

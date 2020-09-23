@@ -9,64 +9,90 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Alquiler</title>
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<!-- Custom fonts for this template -->
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css" />
+<link href='https://fonts.googleapis.com/css?family=Kaushan+Script'
+	rel='stylesheet' type='text/css' />
+<link
+	href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic'
+	rel='stylesheet' type='text/css' />
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'
+	rel='stylesheet' type='text/css' />
+<!-- Custom styles for this template -->
+
+ <link rel="stylesheet" href="css/style.css" />
+        <script src="js/script.js"></script>	
 </h:head>
 
 
-<body >
+<body onload="#{beanUsuarioRol.inicializar()}" id="page-top" >
 	<p:growl>
 		<p:autoUpdate></p:autoUpdate>
 	</p:growl>
 
-	<h:form>
-		<p:menubar>
-			<p:menuitem value="Inicio" action="#{beanUsuario.irBitacora()}"
-				update="@form" icon="fa fa-home" />
+<nav class="navbar navbar-expand-lg navbar-light red" > <a
+		class="navbar-brand" href="#" >
+	<img src="img/portfolio/renta.png" class="img-fluid" width="450" alt="" />
+</a>
+	 <div class="container">
+               
+                <nav>
+                    <ul>
+                        <li><a href="index.xhtml" >Inicio</a></li>
+                        <li><a href="autos.xhtml"  >Autos</a></li>
+                        <li><a href="contactos.xhtml" >Contáctanos</a></li>
+                         <li><a href="login.xhtml" class="active" >Iniciar sesión</a></li>
+                        <li><a href="registrarse.xhtml" class="highlight ">Registrarse</a></li>
+                    </ul>
+                </nav>
+
+       </div>
+	</nav>
 
 
-		</p:menubar>
-	</h:form>
-
-
-
-	<p:panel header="Iniciar Sesión" style=" margin: 0 auto;">
+<div class="container contenedor">
+	<p:panel header="Iniciar Sesión"  style=" margin: 0 auto;">
 		<h:form>
 			<p:panelGrid columns="2" style=" margin: 0 auto;">
 
-				<!-- 		 <div class="wrap-input100 validate-input" -->
-				<!-- 			data-validate="Valid email is required: ex@abc.xyz">  -->
-				<span class="focus-input100"></span>
-				<span class="symbol-input100"> <i class="fa fa-envelope"
-					aria-hidden="true"></i>
+				<span > <i class="fa fa-envelope"
+					 ></i>
 				</span>
-				<p:inputText class="input100"
+				<p:inputText  
 					requiredMessage="El correo es requerido"
 					value="#{beanLogin.correo}" placeholder="Correo" required="true" />
 
-				<!-- 		</div>  -->
-				<!-- 		<div class="wrap-input100 validate-input" 
-			data-validate="Password is required">-->
-				<span class="focus-input100"></span>
-				<span class="symbol-input100"> <i class="fa fa-lock"
-					aria-hidden="true"></i>
+		 
+				<span> <i class="fa fa-lock"
+					 ></i>
 				</span>
-				<p:password class="input100"
+				<p:password  
 					requiredMessage="La contraseña es requerida"
 					value="#{beanLogin.password}" placeholder="Contraseña" />
 
-				<span class="focus-input100"></span>
-				<span class="symbol-input100"> <i class="fa fa-user"
-					aria-hidden="true"></i>
+				<span  > <i class="fa fa-user"
+					 ></i>
 				</span>
 				<p:selectOneMenu required="true"
 					requiredMessage="Seleccione el tipo del usuario"
 					value="#{beanLogin.idTipoUsuario}">
 					<f:selectItem itemLabel="Seleccione" itemValue="" />
-					<f:selectItem itemLabel="Administrador" itemValue="1" />
+					<f:selectItem itemLabel="Gerente" itemValue="1" />
 					<f:selectItem itemLabel="Cliente" itemValue="2" />
 					
-					<f:selectItem itemLabel="Super Administrador" itemValue="4" />
-					<!-- 					<f:selectItems value="#{beanUsuario.listaGenero}" var="r" -->
-					<!-- 						itemLabel="#{r.tipoGenero}" itemValue="#{r.idGenero}" /> -->
 				</p:selectOneMenu>
 
 
@@ -74,17 +100,16 @@
 
 				<br></br>
 				<p:commandButton value="INGRESAR" icon="fa fa-key"
-					style=" background-color: #2E9AFE;  margin: 0 auto; border-color:#0000FF; border-radius: 25px;"
+					style="" class="red"
 					action="#{beanLogin.accederSistema()}" update="mensajes" />
-				<!-- 		</div> -->
-
+				
 			</p:panelGrid>
 
 		</h:form>
-		<h:form id="olvido">
-			<p:commandLink value="Olvidó su contraseña?" icon="fa fa-key"
-				oncomplete="PF('dlgEditar').show();" />
-		</h:form>
+<!-- 		<h:form id="olvido"> -->
+<!-- 			<p:commandLink value="Olvidó su contraseña?" icon="fa fa-key" -->
+<!-- 				oncomplete="PF('dlgEditar').show();" /> -->
+<!-- 		</h:form> -->
 	</p:panel>
 	<p:messages id="mensajes" />
 	<p:dialog header="Recuperar contraseña" widgetVar="dlgEditar">
@@ -93,18 +118,113 @@
 			<p:panelGrid columns="2">
 				<h:outputText value="Ingrese su correo electrónico" />
 				<p:inputText value="#{beanUsuario.usuario.correoUsuario}"
-					maxlength="80">
+					maxlength="50">
 				</p:inputText>
 			</p:panelGrid>
 
 			<br />
-<!-- 			<p:commandButton value="Enviar correo" -->
-<!-- 				actionListener="#{beanUsuario.metodoCorreo()}" -->
-<!-- 				oncomplete="PF('dlgEditar').hide();"> -->
-<!-- 			</p:commandButton> -->
+
+
 		</h:form>
 
 	</p:dialog>
+</div>
 
-</body>
+
+<!-- Footer -->
+	<footer class="footer">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-md-4">
+				<span class="copyright">Copyright 2020</span>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline social-buttons">
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-twitter"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-facebook-f"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-linkedin-in"></i>
+					</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline quicklinks">
+					<li class="list-inline-item"><a href="#"></a></li>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+	</footer>
+
+  <!-- Footer Links -->
+  <div class="footer-links">
+    <div class="footer-container">
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Empresa</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Acerca de nosotros</a>
+        </li>
+        <li>
+          <a href="#">Política de privacidad</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Colaboración</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Términos de servicio</a>
+        </li>
+        <li>
+          <a href="#">Programa de afiliación</a>
+        </li>
+       
+      </ul>
+       <ul>
+        <li>
+          <a href="#">
+            <h2>Más</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Preguntas frecuentes</a>
+        </li>
+        <li>
+          <a href="#">Garantía del Mejor Precio</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+           <img width="300" src="img/portfolio/descarga.png"></img>
+          </a>
+        </li>
+      
+       
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h4>Alquiler de autos Ecuador - Copyright</h4>
+  </footer>
+
+
+
+	</body>
 </html>
+

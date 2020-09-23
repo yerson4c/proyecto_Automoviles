@@ -34,6 +34,8 @@ public class Automovil implements Serializable {
 	@Column(name="estado_automovil", nullable=false, length=7)
 	private String estadoAutomovil;
 
+	private String foto;
+
 	@Column(nullable=false, length=50)
 	private String marca;
 
@@ -43,9 +45,12 @@ public class Automovil implements Serializable {
 	@Column(nullable=false, length=10)
 	private String placa;
 
-	//bi-directional many-to-one association to EstadoAlquiler
+	@Column(precision=7)
+	private BigDecimal precio;
+
+	//bi-directional many-to-one association to Alquiler
 	@OneToMany(mappedBy="automovil")
-	private List<EstadoAlquiler> estadoAlquilers;
+	private List<Alquiler> alquilers;
 
 	public Automovil() {
 	}
@@ -90,6 +95,14 @@ public class Automovil implements Serializable {
 		this.estadoAutomovil = estadoAutomovil;
 	}
 
+	public String getFoto() {
+		return this.foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
 	public String getMarca() {
 		return this.marca;
 	}
@@ -114,26 +127,34 @@ public class Automovil implements Serializable {
 		this.placa = placa;
 	}
 
-	public List<EstadoAlquiler> getEstadoAlquilers() {
-		return this.estadoAlquilers;
+	public BigDecimal getPrecio() {
+		return this.precio;
 	}
 
-	public void setEstadoAlquilers(List<EstadoAlquiler> estadoAlquilers) {
-		this.estadoAlquilers = estadoAlquilers;
+	public void setPrecio(BigDecimal precio) {
+		this.precio = precio;
 	}
 
-	public EstadoAlquiler addEstadoAlquiler(EstadoAlquiler estadoAlquiler) {
-		getEstadoAlquilers().add(estadoAlquiler);
-		estadoAlquiler.setAutomovil(this);
-
-		return estadoAlquiler;
+	public List<Alquiler> getAlquilers() {
+		return this.alquilers;
 	}
 
-	public EstadoAlquiler removeEstadoAlquiler(EstadoAlquiler estadoAlquiler) {
-		getEstadoAlquilers().remove(estadoAlquiler);
-		estadoAlquiler.setAutomovil(null);
+	public void setAlquilers(List<Alquiler> alquilers) {
+		this.alquilers = alquilers;
+	}
 
-		return estadoAlquiler;
+	public Alquiler addAlquiler(Alquiler alquiler) {
+		getAlquilers().add(alquiler);
+		alquiler.setAutomovil(this);
+
+		return alquiler;
+	}
+
+	public Alquiler removeAlquiler(Alquiler alquiler) {
+		getAlquilers().remove(alquiler);
+		alquiler.setAutomovil(null);
+
+		return alquiler;
 	}
 
 }

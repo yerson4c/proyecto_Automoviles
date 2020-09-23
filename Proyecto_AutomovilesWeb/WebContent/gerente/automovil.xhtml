@@ -5,10 +5,10 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <f:metadata>
-<!-- 	<f:event listener="#{beanLogin.actionVerificarLogin()}" -->
-<!-- 		type="preRenderView"></f:event> -->
-
-</f:metadata>
+		<f:event listener="#{beanLogin.actionVerificarLogin()}"
+			type="preRenderView"></f:event>
+		
+	</f:metadata>
 <h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport"
@@ -135,6 +135,12 @@ setInterval(escribirTexto, 100);
 					<br />
 					<p:dataTable value="#{beanAutomovil.listaAutomovil}" var="c">
 						<h:inputHidden value="#{c.idAutomovil}" />
+						
+					<p:column headerText="Imagen" priority="2">
+						<h:graphicImage value="data:image/jpg;base64,#{c.foto}"
+							width="90" />
+					</p:column>
+						
 						<p:column headerText="Modelo"
 							sortBy="#{c.modelo}" filterBy="#{c.modelo}">
 							<h:outputText value="#{c.modelo}" />
@@ -154,6 +160,10 @@ setInterval(escribirTexto, 100);
 						<p:column headerText="Color"
 							sortBy="#{c.color}" filterBy="#{c.color}">
 							<h:outputText value="#{c.color}" />
+						</p:column>
+						<p:column headerText="Precio alquiler"
+							sortBy="#{c.precio}" filterBy="#{c.precio}">
+							<h:outputText value="#{c.precio}" />
 						</p:column>
 						<p:column headerText="Descripción"
 							>
@@ -227,6 +237,10 @@ setInterval(escribirTexto, 100);
 					<f:selectItem itemLabel="Activo" itemValue="A" />
 					<f:selectItem itemLabel="Inactivo" itemValue="I" />
 				</p:selectOneRadio>
+				<h:outputText value="Foto" />
+						<p:fileUpload mode="simple"  auto="true" value="#{beanAutomovil.inputFile}"
+						fileUploadListener="#{beanAutomovil.inputFile}"
+							 />
 			</p:panelGrid>
 			<br />
 			<p:commandButton value="Crear" update="form"
@@ -275,6 +289,9 @@ setInterval(escribirTexto, 100);
 					<f:selectItem itemLabel="Activo" itemValue="A" />
 					<f:selectItem itemLabel="Inactivo" itemValue="I" />
 				</p:selectOneRadio>
+				<h:outputText value="Foto" />
+						<p:fileUpload mode="simple"
+							value="#{beanAutomovil.uploadedFile}" />
 			</p:panelGrid>
 			<br />
 			

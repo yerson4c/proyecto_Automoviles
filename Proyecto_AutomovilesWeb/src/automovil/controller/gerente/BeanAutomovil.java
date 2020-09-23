@@ -1,7 +1,14 @@
 package automovil.controller.gerente;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
-
+import java.util.Base64;
 import java.util.Calendar;
 
 import java.util.List;
@@ -10,12 +17,15 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-
+import javax.imageio.ImageIO;
 import javax.inject.Named;
 
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import automovil.model.entities.Automovil;
 import automovil.model.gerente.ManagerAutomovil;
+import sun.misc.BASE64Encoder;
 
 
 
@@ -30,8 +40,11 @@ public class BeanAutomovil implements Serializable {
 	private List<Automovil> listaAutomovil;
 	private Automovil automovil;
 	private Integer idAutomovil;
-	
-
+	private UploadedFile uploadedFile; // +getter+setter
+    private RenderedImage renderedImg;
+	private InputStream inputstream;
+	private FileInputStream inputFile;
+    
 	@EJB
 	private ManagerAutomovil managerAutomovil;
 	
@@ -67,6 +80,7 @@ public class BeanAutomovil implements Serializable {
 			automovil.setColor(u.getColor());
 			automovil.setEstadoAutomovil(u.getEstadoAutomovil());
 			automovil.setMarca(u.getMarca());
+			automovil.setPrecio(u.getPrecio());
 			automovil.setModelo(u.getModelo());
 			automovil.setPlaca(u.getPlaca());
 			
@@ -78,10 +92,31 @@ public class BeanAutomovil implements Serializable {
 
 	public void actionListenerActualizarAutomovil() {
 		try {
+			BufferedImage image = null;
+			if (uploadedFile != null && uploadedFile.getSize() > 0) {
+				if (uploadedFile.getFileName().matches(".*\\.(png|jpeg|jpg|gif)$")) {
+					image = ImageIO.read(uploadedFile.getInputstream());
+				} else {
+					JSFUtil.crearMensajeError("Seleccione una imagen con los siguientes formatos: png, jpeg, jpg, gif");
+					return;
+				}
+			} else {
+				System.out.println(System.getProperty("user.dir"));
+
+				InputStream inputstream = new FileInputStream("d:\\foto\\foto.png");
+
+				image = ImageIO.read(inputstream);
+			}
+			
 			if (automovil.getPlaca().toString().length() > 0) {
 				Automovil a=managerAutomovil.findByIdAutomovil(automovil.getIdAutomovil());
+				String cod64 = encodeToString(image, "png");
+				
 				a.setAnio(automovil.getAnio());
 				a.setColor(automovil.getColor());
+				System.out.println("codigo "+cod64);
+				a.setFoto(cod64);
+				a.setPrecio(automovil.getPrecio());
 				a.setEstadoAutomovil(automovil.getEstadoAutomovil());
 				a.setMarca(automovil.getMarca());
 				a.setModelo(automovil.getModelo());
@@ -92,7 +127,7 @@ public class BeanAutomovil implements Serializable {
 
 				//listaMedida=managerMedida.findAllMedidas();
 				//managerbit.crearEvento("actionListenerActualizarMedida()", "actualiza una medida ");
-				JSFUtil.crearMensajeInfo("Actualizado con éxito");
+				JSFUtil.crearMensajeInfo("Actualizado  exitosamente");
 			} else {
 				JSFUtil.crearMensajeError("Debe ingresar la placa"); 
 			}
@@ -111,24 +146,102 @@ public class BeanAutomovil implements Serializable {
 		automovil.setMarca("");
 		automovil.setModelo("");
 		automovil.setPlaca(null);
+		automovil.setPrecio(null);
 		
 	}
 
+	/***
+	 * M�todo de ingreso de Imagen
+	 * @param event 
+	 * @throws IOException 
+	 * */
+	public void handleFileUploadImagen(FileUploadEvent event) throws IOException {
+		//nombreArchivoImagen = "";
+//		if (!ModelUtil.isEmpty(nombreArchivo)) {
+//			nombreArchivoImagen = "";
+//		}
+		uploadedFile = event.getFile();
+		uploadedFile.getFileName();
+		System.out.println(uploadedFile.getFileName());
+		System.out.println(uploadedFile.getInputstream());
+//		FacesContext context = FacesContext.getCurrentInstance();
+//		if (fileImagen != null) {
+//			try {
+//				long numero = managerPlanEstrat.findAllPlanEstrategico().size() + 2;
+//				nombreArchivoImagen = managerPlanEstrat.subirAdjunto(fileImagen.getInputstream(), fileImagen.getFileName(), numero);
+//
+//				context.addMessage(null,
+//						new FacesMessage(FacesMessage.SEVERITY_INFO, "Archivo Cargado", fileImagen.getFileName()));
+//				System.out.println("**** nobre archivo img "+nombreArchivoImagen);
+//			} catch (Exception e) {
+//				JSFUtil.crearMensajeINFO(e.getMessage(), null);
+//				e.printStackTrace();
+//			}
+//		}
+		
+	}
+
+	
 	public void actionListenerInsertarAutomovil() {
 		try {
+//			BufferedImage image = null;
+//			
+//			//if (uploadedFile != null) {
+//				//if (uploadedFile.getFileName().matches(".*\\.(png|jpeg|jpg|gif)$")) {
+//		//	InputStream inputstream = new FileInputStream(System.getProperty("user.dir"));
+//			//String data = "data:image/jpeg;base64,/9...";
+//			String base64Image = automovil.getFoto();
+//			InputStream inputstream = new FileInputStream(inputFile.toString());
+//			
+//			//base64ImageString = imagease64String.replace('data:image/jpeg;base64,',''))
+//			
+//			 byte[] imageBytes = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64Image);
+//					image = ImageIO.read(inputstream);
+//					System.out.println("inputstream "+inputstream.toString());
+//					System.out.println("iamge strea, "+image.toString());
+//				//} else {
+//				//	JSFUtil.crearMensajeError("Seleccione una imagen con los siguientes formatos: png, jpeg, jpg, gif");
+//				//	return;
+//				//}
+////			} else {
+////				System.out.println(System.getProperty("user.dir"));
+////
+////				InputStream inputstream = new FileInputStream("d:\\foto\\foto.png");
+////
+////				image = ImageIO.read(inputstream);
+////			}
+			BufferedImage image = null;
+			if (uploadedFile != null && uploadedFile.getSize() > 0) {
+				if (uploadedFile.getFileName().matches(".*\\.(png|jpeg|jpg|gif)$")) {
+					image = ImageIO.read(uploadedFile.getInputstream());
+				} else {
+					JSFUtil.crearMensajeError("Seleccione una imagen con los siguientes formatos: png, jpeg, jpg, gif");
+					return;
+				}
+			} else {
+				System.out.println(System.getProperty("user.dir"));
+
+				InputStream inputstream = new FileInputStream("d:\\foto\\productos.png");
+
+				image = ImageIO.read(inputstream);
+			}
+			
 			if (automovil.getPlaca().toString().length() > 0) {
 				Automovil a=new Automovil();
 				a.setAnio(automovil.getAnio());
+				String cod64 = encodeToString(image, "png");
+				a.setFoto(cod64);
 				a.setDescripcion(automovil.getDescripcion());
 				a.setColor(automovil.getColor());
 				a.setEstadoAutomovil(automovil.getEstadoAutomovil());
 				a.setMarca(automovil.getMarca());
+				a.setPrecio(automovil.getPrecio());
 				a.setModelo(automovil.getModelo());
 				a.setPlaca(automovil.getPlaca());
 				managerAutomovil.insertarAutomovil(a);
 				
 				listaAutomovil=managerAutomovil.findAllAutomovil();
-				JSFUtil.crearMensajeInfo("Insertado con éxito");
+				JSFUtil.crearMensajeInfo("Insertado  exitosamente");
 			} else {
 				JSFUtil.crearMensajeError("Debe ingresar la placa"); 
 			}
@@ -139,12 +252,40 @@ public class BeanAutomovil implements Serializable {
 
 	}
 	
-
+	public  BufferedImage decodeToImage(String imageString) {
+	    BufferedImage image = null;
+	    byte[] imageByte;
+	    try {
+	        Base64.Decoder decoder = Base64.getDecoder();
+	        imageByte = decoder.decode(imageString);
+	        ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+	        image = ImageIO.read(bis);
+	        bis.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return image;
+	}
+	
+	public String encodeToString(BufferedImage image, String type) {
+		String imageString = null;
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(image, type, bos);
+			byte[] imageBytes = bos.toByteArray();
+			BASE64Encoder encoder = new BASE64Encoder();
+			imageString = encoder.encode(imageBytes);
+			bos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return imageString;
+	}
 	public void actionListenerEliminarAutomovil(Integer id) {
 		try {
 			managerAutomovil.eliminarAutomovil(id);
 			listaAutomovil=managerAutomovil.findAllAutomovil();
-			JSFUtil.crearMensajeInfo("Automóvil ha sido eliminado");
+			JSFUtil.crearMensajeInfo("Ha sido eliminado exitosamente");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -229,7 +370,12 @@ public class BeanAutomovil implements Serializable {
 		}
 	}
 
+	
+	
 
+	
+	
+	
 
 	public String irHome() {
 		return "home";
@@ -341,7 +487,74 @@ public class BeanAutomovil implements Serializable {
 
 	public void setAutomovil(Automovil automovil) {
 		this.automovil = automovil;
-	} 
+	}
+
+
+	/**
+	 * @return the uploadedFile
+	 */
+	public UploadedFile getUploadedFile() {
+		return uploadedFile;
+	}
+
+
+	/**
+	 * @param uploadedFile the uploadedFile to set
+	 */
+	public void setUploadedFile(UploadedFile uploadedFile) {
+		this.uploadedFile = uploadedFile;
+	}
+
+
+	/**
+	 * @return the renderedImg
+	 */
+	public RenderedImage getRenderedImg() {
+		return renderedImg;
+	}
+
+
+	/**
+	 * @param renderedImg the renderedImg to set
+	 */
+	public void setRenderedImg(RenderedImage renderedImg) {
+		this.renderedImg = renderedImg;
+	}
+
+
+	/**
+	 * @return the inputstream
+	 */
+	public InputStream getInputstream() {
+		return inputstream;
+	}
+
+
+	/**
+	 * @param inputstream the inputstream to set
+	 */
+	public void setInputstream(InputStream inputstream) {
+		this.inputstream = inputstream;
+	}
+
+
+	/**
+	 * @return the inputFile
+	 */
+	public FileInputStream getInputFile() {
+		return inputFile;
+	}
+
+
+	/**
+	 * @param inputFile the inputFile to set
+	 */
+	public void setInputFile(FileInputStream inputFile) {
+		this.inputFile = inputFile;
+	}
+
+
+ 
 	
 
 }

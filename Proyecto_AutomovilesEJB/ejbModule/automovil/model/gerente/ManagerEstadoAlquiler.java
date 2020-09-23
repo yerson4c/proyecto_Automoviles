@@ -8,10 +8,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import automovil.model.entities.Alquiler;
-import automovil.model.entities.Automovil;
+
 import automovil.model.entities.EstadoAlquiler;
-import automovil.model.entities.Usuario;
 
 import automovil.model.manager.ManagerDAO;
 
@@ -34,7 +32,7 @@ public class ManagerEstadoAlquiler {
 private ManagerDAO managerDAO;
 	
     public ManagerEstadoAlquiler() {
-        // TODO Auto-generated constructor stub
+      
     }
     
     @SuppressWarnings("unchecked")
@@ -57,16 +55,7 @@ private ManagerDAO managerDAO;
 		}
 		return null;	
     }
- /*public Usuario findWhereCorreoUsuario(String correo) {
-    	
-    	try {
-			return (Usuario) managerDAO.findById(Usuario.class, id);
-			managerDAO.findWhere(clase, pClausulaWhere, pOrderBy)
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;	
-    }*/
+ 
     public void insertarEstadoAlquiler(EstadoAlquiler us) throws Exception {
     	//managerDAO.insertar(cat);
     	em.merge(us);

@@ -21,6 +21,10 @@ public class UsuarioRol implements Serializable {
 	@Column(name="id_usuario_rol", unique=true, nullable=false)
 	private Integer idUsuarioRol;
 
+	//bi-directional many-to-one association to Alquiler
+	@OneToMany(mappedBy="usuarioRol")
+	private List<Alquiler> alquilers;
+
 	//bi-directional many-to-one association to EstadoAlquiler
 	@OneToMany(mappedBy="usuarioRol")
 	private List<EstadoAlquiler> estadoAlquilers;
@@ -44,6 +48,28 @@ public class UsuarioRol implements Serializable {
 
 	public void setIdUsuarioRol(Integer idUsuarioRol) {
 		this.idUsuarioRol = idUsuarioRol;
+	}
+
+	public List<Alquiler> getAlquilers() {
+		return this.alquilers;
+	}
+
+	public void setAlquilers(List<Alquiler> alquilers) {
+		this.alquilers = alquilers;
+	}
+
+	public Alquiler addAlquiler(Alquiler alquiler) {
+		getAlquilers().add(alquiler);
+		alquiler.setUsuarioRol(this);
+
+		return alquiler;
+	}
+
+	public Alquiler removeAlquiler(Alquiler alquiler) {
+		getAlquilers().remove(alquiler);
+		alquiler.setUsuarioRol(null);
+
+		return alquiler;
 	}
 
 	public List<EstadoAlquiler> getEstadoAlquilers() {

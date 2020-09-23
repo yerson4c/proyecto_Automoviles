@@ -1,20 +1,442 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Alquiler de autos</title>
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<!-- Custom fonts for this template -->
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css" />
+
+ <link rel="stylesheet" href="css/style.css" />
+        <script src="js/script.js"></script>
+        
+</head>
+<body id="page-top">
 
 
-	<h:head></h:head> 
-<body> 
 
-<h:outputLabel value="hola mundo 2" />
+	<nav class="navbar navbar-expand-lg navbar-light red" > <a
+		class="navbar-brand" href="#" >
+	<img src="img/portfolio/renta.png" class="img-fluid" width="450" alt="" />
+</a>
+	 <div class="container">
+          
+            
+               
+                <nav>
+                    <ul>
+                        <li><a href="index.xhtml"  class="active">Inicio</a></li>
+                        <li><a href="autos.xhtml"  >Autos</a></li>
+                        <li><a href="contactos.xhtml" >Contáctanos</a></li>
+                         <li><a href="login.xhtml" >Iniciar sesión</a></li>
+                        <li><a href="registrarse.xhtml" class="highlight ">Registrarse</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+           
+	</nav>
+
+	<div id="carouselExampleIndicators" class="carousel slide"
+		data-ride="carousel">
+		<ol class="carousel-indicators">
+			<li data-target="#carouselExampleIndicators" data-slide-to="0"
+				class="active"></li>
+			<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+			<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+		</ol>
+		<div class="carousel-inner" style="height: 400px">
+			<div class="carousel-item active">
+				<img class="d-block w-100 h-100" src="img/portfolio/BANER1.jpg" alt="First slide"></img>
+			</div>
+			<div class="carousel-item">
+				<img class="d-block w-100" src="img/portfolio/baner2.png" alt="Second slide"></img>
+			</div>
+			<div class="carousel-item">
+				<img class="d-block w-100" src="img/portfolio/baner3.png" alt="Third slide"></img>
+			</div>
+		</div>
+		<a class="carousel-control-prev" href="#carouselExampleIndicators"
+			role="button" data-slide="prev"> <span
+			class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+			class="sr-only">Previous</span>
+		</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
+			role="button" data-slide="next"> <span
+			class="carousel-control-next-icon" aria-hidden="true"></span> <span
+			class="sr-only">Next</span>
+		</a>
+	</div>
 
 
-<h:outputLabel value="hola xd DFF" />
-<h1>Proyecto Creado al github s Mony Editado</h1>
+
+<!-- Services -->
 
 
-</body> 
 
+	<section class="page-section" id="services">
+	<div class="container contenedor">
+		<div class="row">
+			 <div class="content">
+                    <h1>Por qué alquilar con nosotros?</h1>
+                    
+ 		 	</div>
+ 		 	
+		</div>
+		<br></br>
+		<div class="row">
+ 		 	<div class="col-md-6">
+                    	<div class="row">
+							<div class="col-md-3">
+                    			<img width="95" src="img/portfolio/check.jpg"></img>
+                    		</div>
+                    		<div class="col-md-9">
+                    			<h3>Precio mínimo garantizado</h3>
+                    			<p>Si lo encuentras más barato igualamos la oferta</p>
+                    		 </div>
+                    	</div>
+              </div>
+              <div class="col-md-6">
+                    	<div class="row">
+							<div class="col-md-3">
+                    			<img width="95" src="img/portfolio/check.jpg"></img>
+                    		</div>
+                    		<div class="col-md-9">
+                    			<h3>Autos de alquiler en todo el Ecuador</h3>
+                    			<p>Alquiler de autos en más de 50 destinos</p>
+                    		 </div>
+                    	</div>
+              </div>
+         </div>
+         <div class="row">
+ 		 	<div class="col-md-6">
+                    	<div class="row">
+							<div class="col-md-3">
+                    			<img width="95" src="img/portfolio/check.jpg"></img>
+                    		</div>
+                    		<div class="col-md-9">
+                    			<h3>Más de 10000 de clientes satisfechos</h3>
+                    			<p>Trabajamos con el principal broker de alquiler de autos</p>
+                    		 </div>
+                    	</div>
+              </div>
+              <div class="col-md-6">
+                    	<div class="row">
+							<div class="col-md-3">
+                    			<img width="95" src="img/portfolio/check.jpg"></img>
+                    		</div>
+                    		<div class="col-md-9">
+                    			<h3>Sin gastos ocultos</h3>
+                    			<p>Reservas y modificaciones sin gastos ni comisiones</p>
+                    		 </div>
+                    	</div>
+              </div>
+         </div>
+         <br></br>
+		<div class="row text-center">
+			<div class="col-md-4">
+				<span class="fa-stack  fa-spin fa-3x fa-fw"> <i
+					class="fas fa-circle fa-stack-2x text-success"></i> <i
+					class="fa fa-dollar-sign fa-stack-1x fa-inverse"></i>
+				</span>
+				<h4 class="service-heading">Como comparar los precios?</h4>
+				<p class="text-muted texto">Para buscar los mejores precios, simplemente ingresa la 
+				ubicación donde deseas retirar el coche (puede ser una ciudad o un aeropuerto), 
+				la fecha y la hora de retirada y devolución. También es posible recoger el automóvil
+				 en un lugar y devolverlo en otro, solo selecciona la opción 
+				 "Quiero devolver el auto en otra ciudad". Una vez que hagas clic en "Buscar", 
+				  Te mostrará las mejores ofertas de alquiler de coches.</p>
+			</div>
+			<div class="col-md-4">
+				<span class="fa-stack  fa-spin fa-3x fa-fw"> <i
+					class="fas fa-circle fa-stack-2x text-info"></i> <i
+					class="fas fa-truck-loading fa-stack-1x fa-inverse"></i>
+				</span>
+				<h4 class="service-heading">Cuales son los requisitos mínimos para rentar?</h4>
+				<p class="text-muted texto">
+              Hay algunas reglas diferentes para el alquiler de coches en su país y en el extranjero. Generalmente, el arrendatario debe tener 25 años, una licencia de conducir 
+              nacional válida hasta el término del contrato y una tarjeta de crédito con límite suficiente para el
+               depósito de garantía.La licencia de conducir nacional (con vigencia mínima de 2 años),
+                también es necesario presentar el pasaporte.
+            </p>
+			</div>
+			<div class="col-md-4">
+				<span class="fa-stack  fa-spin fa-3x fa-fw"> <i
+					class="fas fa-circle fa-stack-2x"></i> <i
+					class="fas fa-clipboard-list fa-stack-1x fa-inverse"></i>
+				</span>
+				<h4 class="service-heading">Por qué rentar con nosotros es mejor?</h4>
+				<p class="text-muted texto">Ya sea que viajes con amigos, familia o necesites una solución
+				 fácil para reuniones de negocios, alquilar un auto puede ahorrarte tiempo y dinero.
+				  Con nosotros puedes estar tranquilo pues  nos especializamos en comparación
+				   de precios y alquiler de coches, ofreciendo más de 100 compañías de alquiler en más de 
+				   20 provincias del Ecuador.</p>
+				   
+				
+			</div>
+		</div>
+	</div>
+	</section>
+	<hr></hr>
+	<!-- Services -->
+	<section class="page-section" id="services">
+	<div class="container contenedor">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h2 class="section-heading">Categorías</h2>
+				
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-4 col-md-6 col-sm-12 text-center">
+				<div class="movie">
+					<img src="img/carros/auto-dmax.jpg" width="250" alt="" />
+					<div class="movie-info">
+						<h4>Camionetas</h4>
+						<span>83$</span>
+					</div>
+					<div class="overview">
+					<h4>Camionetas</h4> 
+					
+					<p>Cancelación gratis hasta 24hs antes del retiro</p>
+ 					<p>Cobertura por daño y robo con franquicia</p>
+					
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6 col-sm-12 text-center">
+				<div class="movie">
+					<img src="img/carros/autodep.jpg" width="250" alt="" />
+					<div class="movie-info">
+						<h4>Jeep</h4>
+						<span>65$</span>
+					</div>
+					<div class="overview">
+					<h4>Jeep</h4> 
+					
+					<p>Cancelación gratis hasta 24hs antes del retiro</p>
+ 					<p>Cobertura por daño y robo con franquicia</p>
+					
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-4 col-md-6 col-sm-12 text-center">
+				<div class="movie">
+					<img src="img/carros/auto2.png" width="250" alt="" />
+					<div class="movie-info">
+						<h4>Autmóvil</h4>
+						<span>45$</span>
+					</div>
+					<div class="overview">
+					<h4>Autmóvil</h4> 
+					
+					<p>Cancelación gratis hasta 24hs antes del retiro</p>
+ 					<p>Cobertura por daño y robo con franquicia</p>
+					
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-4 col-md-6 col-sm-12 text-center">
+				<div class="movie">
+					<img src="img/carros/autoRojo.jpg" width="250" alt="" />
+					<div class="movie-info">
+						<h4>Deportivos</h4>
+						<span>58$</span>
+					</div>
+					<div class="overview">
+					<h4>Deportivos</h4> 
+					
+					<p>Cancelación gratis hasta 24hs antes del retiro</p>
+ 					<p>Cobertura por daño y robo con franquicia</p>
+					
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-4 col-md-6 col-sm-12 text-center">
+				<div class="movie">
+					<img src="img/carros/auto1.jpg"  alt="" />
+					<div class="movie-info">
+						<h4>Familiares</h4>
+						<span>52$</span>
+					</div>
+					<div class="overview">
+					<h4>Familiares</h4> 
+					
+					<p>Cancelación gratis hasta 24hs antes del retiro</p>
+ 					<p>Cobertura por daño y robo con franquicia</p>
+					
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6 col-sm-12 text-center">
+				<div class="movie">
+					<img src="img/carros/trooper.png" width="250" alt="" />
+					<div class="movie-info">
+						<h4>Trooper</h4>
+						<span>53$</span>
+					</div>
+					<div class="overview">
+					<h4>Trooper</h4> 
+					
+					<p>Cancelación gratis hasta 24hs antes del retiro</p>
+ 					<p>Cobertura por daño y robo con franquicia</p>
+					
+					</div>
+				</div>
+			</div>
+
+		</div>
+		
+	</div>
+	</section>
+
+
+	<!-- Clients -->
+	<section class="py-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3 col-sm-6">
+				<a href="#"> <img class="img-fluid d-block mx-auto"
+					src="img/logos/envato.jpg" alt=""></img>
+				</a>
+			</div>
+			<div class="col-md-3 col-sm-6">
+				<a href="#"> <img class="img-fluid d-block mx-auto"
+					src="img/logos/designmodo.jpg" alt=""></img>
+				</a>
+			</div>
+			<div class="col-md-3 col-sm-6">
+				<a href="#"> <img class="img-fluid d-block mx-auto"
+					src="img/logos/themeforest.jpg" alt=""></img>
+				</a>
+			</div>
+			<div class="col-md-3 col-sm-6">
+				<a href="#"> <img class="img-fluid d-block mx-auto"
+					src="img/logos/creative-market.jpg" alt=""></img>
+				</a>
+			</div>
+		</div>
+	</div>
+	</section>
+
+
+	<!-- Footer -->
+	<footer class="footer">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-md-4">
+				<span class="copyright">Copyright 2020</span>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline social-buttons">
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-twitter"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-facebook-f"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-linkedin-in"></i>
+					</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline quicklinks">
+					<li class="list-inline-item"><a href="#"></a></li>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+	</footer>
+
+  <!-- Footer Links -->
+  <div class="footer-links">
+    <div class="footer-container">
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Empresa</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Acerca de nosotros</a>
+        </li>
+        <li>
+          <a href="#">Política de privacidad</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Colaboración</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Términos de servicio</a>
+        </li>
+        <li>
+          <a href="#">Programa de afiliación</a>
+        </li>
+       
+      </ul>
+       <ul>
+        <li>
+          <a href="#">
+            <h2>Más</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Preguntas frecuentes</a>
+        </li>
+        <li>
+          <a href="#">Garantía del Mejor Precio</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+           <img width="300" src="img/portfolio/descarga.png"></img>
+          </a>
+        </li>
+      
+       
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h4>Alquiler de autos Ecuador - Copyright</h4>
+  </footer>
+
+
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Plugin JavaScript -->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Contact form JavaScript -->
+	<script src="js/jqBootstrapValidation.js"></script>
+	<script src="js/contact_me.js"></script>
+	<!-- Custom scripts for this template -->
+	<script src="js/agency.min.js"></script>
+</body>
 </html>

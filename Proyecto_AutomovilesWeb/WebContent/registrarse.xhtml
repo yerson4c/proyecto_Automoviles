@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Alquiler</title>
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<!-- Custom fonts for this template -->
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css" />
+<link href='https://fonts.googleapis.com/css?family=Kaushan+Script'
+	rel='stylesheet' type='text/css' />
+<link
+	href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic'
+	rel='stylesheet' type='text/css' />
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'
+	rel='stylesheet' type='text/css' />
+<!-- Custom styles for this template -->
+
+ <link rel="stylesheet" href="css/style.css" />
+        <script src="js/script.js"></script>	
+</h:head>
+
+
+<body onload="#{beanUsuario.inicializar()}" id="page-top" >
+	<p:growl>
+		<p:autoUpdate></p:autoUpdate>
+	</p:growl>
+
+<nav class="navbar navbar-expand-lg navbar-light red" > <a
+		class="navbar-brand" href="#" >
+	<img src="img/portfolio/renta.png" class="img-fluid" width="450" alt="" />
+</a>
+	 <div class="container">
+               
+                <nav>
+                    <ul>
+                        <li><a href="index.xhtml" >Inicio</a></li>
+                        <li><a href="autos.xhtml"  >Autos</a></li>
+                         <li><a href="contactos.xhtml" >Contáctanos</a></li>
+                         <li><a href="login.xhtml" >Iniciar sesión</a></li>
+                        <li><a href="registrarse.xhtml"  class="active">Registrarse</a></li>
+                    </ul>
+                </nav>
+
+       </div>
+	</nav>
+
+
+<div class="container contenedor">
+<p:panel header="Registrarse"  style=" margin: 0 auto;">
+		<h:form id="form">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+
+			<p:panelGrid columns="4" style=" margin: 0 auto;">
+				<h:outputText value="Nombre" />
+				<p:inputText value="#{beanUsuario.usuario.nombreUsuario}"
+					requiredMessage="El nombre del usuario es requerido"
+					required="true" maxlength="30"
+					validatorMessage="Nombre incorrecto, máximo dos nombres, sólo se permite letras">
+					<f:validateRegex pattern="[A-Za-zÑñÁáÉéÍíÓóÚúÜü ]+" />
+				</p:inputText>
+
+				<h:outputText value="Apellido" />
+				<p:inputText value="#{beanUsuario.usuario.apellidoUsuario}"
+					requiredMessage="El apellido del usuario es requerido"
+					required="true" maxlength="30"
+					validatorMessage="Apellido incorrecto, sólo se permite letras">
+					<f:validateRegex pattern="[A-Za-zÑñÁáÉéÍíÓóÚúÜü ]+" />
+				</p:inputText>
+
+				<h:outputText value="Género" />
+				<p:selectOneMenu required="true"
+					requiredMessage="Seleccione el género del usuario"
+					value="#{beanUsuario.usuario.genero}">
+					<f:selectItem itemLabel="Seleccione" itemValue="" />
+					<f:selectItem itemLabel="Maculino" itemValue="M" />
+					<f:selectItem itemLabel="Femenino" itemValue="F" />
+				</p:selectOneMenu>
+
+				<h:outputText value="Cédula " />
+				<p:inputText required="true"
+					value="#{beanUsuario.usuario.cedulaUsuario}" maxlength="10"
+					requiredMessage="La cédula es requerida"
+					validatorMessage="Cédula Incorrecta, debe ingresar solo números">
+					<f:validateRegex pattern="([0-9]*)" />
+				</p:inputText>
+
+				<h:outputText value="Correo" />
+				<p:inputText value="#{beanUsuario.usuario.correoUsuario}"
+					requiredMessage="El correo del usuario es requerido"
+					maxlength="119" required="true" />
+				<h:outputText value="Contraseña" />
+				<p:password value="#{beanUsuario.usuario.claveUsuario}" feedback="true"
+					promptLabel="Nivel de seguridad" weakLabel="Baja" goodLabel="Media"
+					strongLabel="Alta"
+					requiredMessage="La contraseña del usuario es requerida"
+					required="true" />
+
+				<h:outputText value="Dirección" />
+				<p:inputTextarea value="#{beanUsuario.usuario.direccionUsuario}"
+					requiredMessage="La direccion del usuario es requerido" />
+				<h:outputText value="Fecha de nacimiento" />
+				<p:calendar value="#{beanUsuario.usuario.fechaNacUsuario}"
+					requiredMessage="La fecha del nacimiento es requerida"
+					required="true" locale="es"></p:calendar>
+				<h:outputText value="Teléfono" />
+				<p:inputText maxlength="10"
+					value="#{beanUsuario.usuario.telefonoUsuario}"
+					validatorMessage="Número de teléfono Incorrecto, debe ingresar solo números">
+					<f:validateRegex pattern="([0-9]*)" />
+				</p:inputText>
+				<p:commandButton value="Registrarse" update="form,mensajes" 
+				action="#{beanUsuario.actionInsertarUsuario()}"
+				actionListener="#{beanUsuario.actionInsertarUsuario()}"
+				oncomplete="PF('dlgCrear').hide();">
+			</p:commandButton>
+
+			</p:panelGrid>
+			<br />
+			
+		</h:form>
+</p:panel>
+<p:messages closable="true" id="mensajes" />
+
+	</div>
+
+
+<!-- Footer -->
+	<footer class="footer">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-md-4">
+				<span class="copyright">Copyright 2020</span>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline social-buttons">
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-twitter"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-facebook-f"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-linkedin-in"></i>
+					</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline quicklinks">
+					<li class="list-inline-item"><a href="#"></a></li>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+	</footer>
+
+  <!-- Footer Links -->
+  <div class="footer-links">
+    <div class="footer-container">
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Empresa</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Acerca de nosotros</a>
+        </li>
+        <li>
+          <a href="#">Política de privacidad</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Colaboración</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Términos de servicio</a>
+        </li>
+        <li>
+          <a href="#">Programa de afiliación</a>
+        </li>
+       
+      </ul>
+       <ul>
+        <li>
+          <a href="#">
+            <h2>Más</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Preguntas frecuentes</a>
+        </li>
+        <li>
+          <a href="#">Garantía del Mejor Precio</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+           <img width="300" src="img/portfolio/descarga.png"></img>
+          </a>
+        </li>
+      
+       
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h4>Alquiler de autos Ecuador - Copyright</h4>
+  </footer>
+
+
+
+	</body>
+</html>
+

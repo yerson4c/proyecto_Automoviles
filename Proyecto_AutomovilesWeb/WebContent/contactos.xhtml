@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Alquiler de autos</title>
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<!-- Custom fonts for this template -->
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css" />
+
+ <link rel="stylesheet" href="css/style.css" />
+        <script src="js/script.js"></script>
+        
+</head>
+<body id="page-top">
+
+
+
+	<nav class="navbar navbar-expand-lg navbar-light red" > <a
+		class="navbar-brand" href="#" >
+	<img src="img/portfolio/renta.png" class="img-fluid" width="450" alt="" />
+</a>
+	 <div class="container">
+          
+            
+               
+                <nav>
+                    <ul>
+                        <li><a href="index.xhtml" >Inicio</a></li>
+                        <li><a href="autos.xhtml"  >Autos</a></li>
+                        <li><a href="contactos.xhtml" class="active" >Contáctanos</a></li>
+                         <li><a href="login.xhtml" >Iniciar sesión</a></li>
+                        <li><a href="registrarse.xhtml" class="highlight ">Registrarse</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+           
+	</nav>
+
+	
+ 
+	<section class="page-section" id="services">
+	<div class="container contenedor">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h2 class="section-heading">EQUIPO DE TRABAJO</h2>
+				
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-4 col-md-6 col-sm-12 text-center">
+				<div class="movie">
+					<img src="img/about/jerson.PNG" class="redondeado" width="250" alt="" />
+					<div class="movie-info">
+						<h4>Jerson Lucero</h4>
+						<span>jflucerot@utn.edu.ec</span>
+					</div>
+					<div class="overview">
+					<h4>Jerson Lucero</h4> 
+					
+					<p>Estudiante de Ingeniería en sistemas computacionales</p>
+ 					<p>Ibarra-Ecuador</p>
+					
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6 col-sm-12 text-center">
+				<div class="movie">
+					<img src="img/about/monica.PNG" width="250" alt="" />
+					<div class="movie-info">
+						<h4>Mónica Escobar</h4>
+						<span style="font-size: 0.8em">mcescobarm@utn.edu.ec</span>
+					</div>
+					<div class="overview">
+					<h4>Mónica Escobar</h4> 
+					
+					<p>Estudiante de Ingeniería en sistemas computacionales</p>
+ 					<p>Ibarra-Ecuador</p>
+					
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-4 col-md-6 col-sm-12 text-center">
+				<div class="movie">
+					<img src="img/about/jesus.PNG" width="250" alt="" />
+					<div class="movie-info">
+						<h4>Jesús Gonzales </h4>
+						<span style="font-size: 0.8em">jjgonzalesm@utn.edu.ec</span>
+					</div>
+					<div class="overview">
+					<h4>Autmóvil</h4> 
+					
+					<p>Cancelación gratis hasta 24hs antes del retiro</p>
+ 					<p>Cobertura por daño y robo con franquicia</p>
+					
+					</div>
+				</div>
+			</div>
+			
+
+
+		</div>
+
+<div class="row">
+			<img width="900" src="img/about/tarjeta.png" alt="" />
+		</div>
+		
+		
+	</div>
+	</section>
+
+
+	<!-- Contact -->
+	<section class="page-section" id="contact">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h2 class="section-heading text-uppercase">Contáctanos</h2>
+				<!-- 					<h3 class="section-subheading text-muted">Lorem ipsum dolor -->
+				<!-- 						sit amet consectetur.</h3> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<form id="contactForm" name="sentMessage" novalidate="novalidate">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<input class="form-control" id="name" type="text"
+									placeholder="Nombre *" required="required"
+									data-validation-required-message="Please enter your name.">
+								</input>
+								<p class="help-block text-danger"></p>
+							</div>
+							<div class="form-group">
+								<input class="form-control" id="email" type="email"
+									placeholder="Correo electrónico *" required="required"
+									data-validation-required-message="Please enter your email address.">
+								</input>
+								<p class="help-block text-danger"></p>
+							</div>
+							<div class="form-group">
+								<input class="form-control" id="phone" type="tel"
+									placeholder="Teléfono *" required="required"
+									data-validation-required-message="Please enter your phone number.">
+								</input>
+								<p class="help-block text-danger"></p>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<textarea class="form-control" id="message"
+									placeholder="Mensaje *" required="required"
+									data-validation-required-message="Please enter a message."></textarea>
+								<p class="help-block text-danger"></p>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="col-lg-12 text-center">
+							<div id="success"></div>
+							<button id="sendMessageButton"
+								class="btn btn-primary btn-xl text-uppercase" type="submit">Enviar
+								Mensaje</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</section>
+	<!-- Footer -->
+	<footer class="footer">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-md-4">
+				<span class="copyright">Copyright 2020</span>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline social-buttons">
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-twitter"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-facebook-f"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-linkedin-in"></i>
+					</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline quicklinks">
+					<li class="list-inline-item"><a href="#"></a></li>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+	</footer>
+
+  <!-- Footer Links -->
+  <div class="footer-links">
+    <div class="footer-container">
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Empresa</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Acerca de nosotros</a>
+        </li>
+        <li>
+          <a href="#">Política de privacidad</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Colaboración</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Términos de servicio</a>
+        </li>
+        <li>
+          <a href="#">Programa de afiliación</a>
+        </li>
+       
+      </ul>
+       <ul>
+        <li>
+          <a href="#">
+            <h2>Más</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Preguntas frecuentes</a>
+        </li>
+        <li>
+          <a href="#">Garantía del Mejor Precio</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+           <img width="300" src="img/portfolio/descarga.png"></img>
+          </a>
+        </li>
+      
+       
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h4>Alquiler de autos Ecuador - Copyright</h4>
+  </footer>
+
+
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Plugin JavaScript -->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Contact form JavaScript -->
+	<script src="js/jqBootstrapValidation.js"></script>
+	<script src="js/contact_me.js"></script>
+	<!-- Custom scripts for this template -->
+	<script src="js/agency.min.js"></script>
+</body>
+</html>

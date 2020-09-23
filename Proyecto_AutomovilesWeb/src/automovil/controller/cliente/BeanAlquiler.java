@@ -31,8 +31,7 @@ public class BeanAlquiler implements Serializable {
 	private List<Alquiler> listaAlquiler;
 	private Alquiler  alquiler;
 	private Integer idAlquier;
-	private LocalDateTime dateTimeInicio;
-	private LocalDateTime dateTimeFin;
+	
 	@EJB
 	private ManagerAlquiler managerAlquiler;
 	
@@ -90,7 +89,7 @@ public class BeanAlquiler implements Serializable {
 
 				//listaMedida=managerMedida.findAllMedidas();
 				//managerbit.crearEvento("actionListenerActualizarMedida()", "actualiza una medida ");
-				JSFUtil.crearMensajeInfo("Actualizado con éxito");
+				JSFUtil.crearMensajeInfo("Actualizado exitosamente");
 			} else {
 				JSFUtil.crearMensajeError("Debe ingresar el estado"); 
 			}
@@ -130,7 +129,7 @@ public class BeanAlquiler implements Serializable {
 
 				//listaMedida=managerMedida.findAllMedidas();
 				//managerbit.crearEvento("actionListenerActualizarMedida()", "actualiza una medida ");
-				JSFUtil.crearMensajeInfo("Insertado con éxito");
+				JSFUtil.crearMensajeInfo("Insertado exitosamente");
 			} else {
 				JSFUtil.crearMensajeError("Debe ingresar el estado"); 
 			}		

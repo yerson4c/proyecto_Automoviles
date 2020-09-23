@@ -1,5 +1,7 @@
 package automovil.model.gerente;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -54,16 +56,21 @@ private ManagerDAO managerDAO;
 		}
 		return null;	
     }
- /*public Usuario findWhereCorreoUsuario(String correo) {
-    	
+    
+ 
+ @SuppressWarnings("unchecked")
+public List<Usuario> findWhereCorreoUsuario(String correo) {
+    	List<Usuario>lstUsuario=new ArrayList<>();
     	try {
-			return (Usuario) managerDAO.findById(Usuario.class, id);
-			managerDAO.findWhere(clase, pClausulaWhere, pOrderBy)
+
+			lstUsuario=managerDAO.findWhere(Usuario.class, "o.correoUsuario='"+correo+"'", null);
+			return lstUsuario;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;	
-    }*/
+		return lstUsuario;	
+    }
+ 
     public void insertarUsuario(Usuario us) throws Exception {
     	managerDAO.insertar(us);
     	//em.merge(us);

@@ -48,8 +48,8 @@ public class Usuario implements Serializable {
 	@Column(name="nombre_usuario", nullable=false, length=50)
 	private String nombreUsuario;
 
-	@Column(name="telefono_usuario", nullable=false, precision=10)
-	private BigDecimal telefonoUsuario;
+	@Column(name="telefono_usuario", precision=13)
+	private String telefonoUsuario;
 
 	//bi-directional many-to-one association to UsuarioRol
 	@OneToMany(mappedBy="usuario")
@@ -130,11 +130,18 @@ public class Usuario implements Serializable {
 		this.nombreUsuario = nombreUsuario;
 	}
 
-	public BigDecimal getTelefonoUsuario() {
-		return this.telefonoUsuario;
+	
+	/**
+	 * @return the telefonoUsuario
+	 */
+	public String getTelefonoUsuario() {
+		return telefonoUsuario;
 	}
 
-	public void setTelefonoUsuario(BigDecimal telefonoUsuario) {
+	/**
+	 * @param telefonoUsuario the telefonoUsuario to set
+	 */
+	public void setTelefonoUsuario(String telefonoUsuario) {
 		this.telefonoUsuario = telefonoUsuario;
 	}
 
