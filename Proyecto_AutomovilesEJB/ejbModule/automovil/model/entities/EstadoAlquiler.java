@@ -3,6 +3,7 @@ package automovil.model.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -24,8 +25,9 @@ public class EstadoAlquiler implements Serializable {
 	@Column(length=1)
 	private String entregado;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="fecha_recepcion", nullable=false)
-	private Timestamp fechaRecepcion;
+	private Date fechaRecepcion;
 
 	//bi-directional many-to-one association to Alquiler
 	@ManyToOne
@@ -56,11 +58,12 @@ public class EstadoAlquiler implements Serializable {
 		this.entregado = entregado;
 	}
 
-	public Timestamp getFechaRecepcion() {
-		return this.fechaRecepcion;
+
+	public Date getFechaRecepcion() {
+		return fechaRecepcion;
 	}
 
-	public void setFechaRecepcion(Timestamp fechaRecepcion) {
+	public void setFechaRecepcion(Date fechaRecepcion) {
 		this.fechaRecepcion = fechaRecepcion;
 	}
 

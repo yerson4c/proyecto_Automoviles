@@ -72,28 +72,20 @@ setInterval(escribirTexto, 100);
 	
 	
 		<p:menubar style="background-color:rgb(216, 0, 0)">
-		
+
 				<p:menuitem value="Inicio" icon="pi pi-home" update="@form" action="#{beanUsuario.irHome()}" class="manu" >
-				 
 				</p:menuitem>
 				<p:menuitem value="Usuarios" icon="pi pi-user" update="@form" action="#{beanUsuario.irUsuarios()}"  class="manu" >
-				 
 				</p:menuitem>
 				<p:menuitem value="Automóviles" icon="pi pi-star" update="@form"  action="#{beanUsuario.irAutomoviles()}"  class="manu" >
-				 
 				</p:menuitem>
 				<p:menuitem value="Solicitudes" icon="pi pi-calendar-plus" update="@form" action="#{beanUsuario.irSolicitudes()}"  class="manu" >
-			 
 				</p:menuitem>
 				<p:menuitem value="Entregas" icon="pi pi-eye" update="@form" action="#{beanUsuario.irEntregas()}" class="manu" >
-				 
 				</p:menuitem>
-				<p:menuitem value="Reportes" icon="pi pi-chart-line" update="@form" action="#{beanUsuario.irReportes()}" class="manu" >
-				 
+				<p:menuitem value="Reportes" icon="pi pi-print" update="@form" action="#{beanUsuario.irReportes()}" class="manu" >
 				</p:menuitem>
-				<p:menuitem  value="Configuraciones" icon="pi pi-cog" update="@form" action="#{beanUsuario.irConfiguraciones()}" class="manu" > 
-				 
-				</p:menuitem>
+				
 			  <f:facet name="options">
 			  	
 				<p:outputLabel style="color:white" value="#{beanLogin.correo} | Gerente..  "></p:outputLabel>
@@ -102,8 +94,7 @@ setInterval(escribirTexto, 100);
 					icon="pi pi-power-off" />
 				</f:facet>	
 			
-	</p:menubar>	
-	
+	</p:menubar>
 	</h:form>
 	<p:panel header="AUTOMÓVIL">
 		<div class="ui-g" style="margin-top: 20px;">
@@ -197,17 +188,19 @@ setInterval(escribirTexto, 100);
 					requiredMessage="El modelo es requerido" required="true">
 				</p:inputText>
 				<h:outputText value="Placa" />
-				<p:inputText value="#{beanAutomovil.automovil.placa}"
-					requiredMessage="La placa es requerida" required="true">
-				</p:inputText>
+				<p:inputMask value="#{beanAutomovil.automovil.placa}"
+					requiredMessage="La placa es requerida" required="true" mask="aaa-9999"/>
+				
+				
 				<h:outputText value="Marca" />
 				<p:inputText value="#{beanAutomovil.automovil.marca}"
 					requiredMessage="La marca es requerida" required="true">
 				</p:inputText>
 				<h:outputText value="Año" />
-				<p:inputNumber decimalPlaces="0"  size="4" maxlength="4" value="#{beanAutomovil.automovil.anio}"
-					requiredMessage="El año es requerido" required="true">
-				</p:inputNumber>
+				 <p:spinner  value="#{beanAutomovil.automovil.anio}" required="true" min="1990" max="2020"
+				 requiredMessage="El año es requerido" />
+				
+				
 				<h:outputText value="Color" />
 				<p:inputText value="#{beanAutomovil.automovil.color}"
 					requiredMessage="El color es requerido" required="true">
@@ -217,8 +210,8 @@ setInterval(escribirTexto, 100);
 					requiredMessage="La descripción  es requerida" required="true">
 				</p:inputText>
 				<h:outputText value="Precio" />
-				<p:inputNumber value="#{beanAutomovil.automovil.precio}" 
-				></p:inputNumber>
+				<p:spinner  value="#{beanAutomovil.automovil.precio}" required="true" min="45" max="200"
+				 requiredMessage="El precio es requerido" />
 				<h:outputText value="Estado" />
 				<p:selectOneRadio id="estado"
 					value="#{beanAutomovil.automovil.estadoAutomovil}" required="true"
@@ -251,18 +244,20 @@ setInterval(escribirTexto, 100);
 				<p:inputText value="#{beanAutomovil.automovil.modelo}"
 					requiredMessage="El modelo es requerido" required="true">
 				</p:inputText>
-				<h:outputText value="Placa" />
-				<p:inputText value="#{beanAutomovil.automovil.placa}"
-					requiredMessage="La placa es requerida" required="true">
-				</p:inputText>
+			    <h:outputText value="Placa" />
+				<p:inputMask value="#{beanAutomovil.automovil.placa}"
+					requiredMessage="La placa es requerida" required="true" mask="aaa-9999"/>
+				
+				
 				<h:outputText value="Marca" />
 				<p:inputText value="#{beanAutomovil.automovil.marca}"
 					requiredMessage="La marca es requerida" required="true">
 				</p:inputText>
 				<h:outputText value="Año" />
-				<p:inputNumber decimalPlaces="0"  size="4" maxlength="4" value="#{beanAutomovil.automovil.anio}"
-					requiredMessage="El año es requerido" required="true">
-				</p:inputNumber>
+				 <p:spinner  value="#{beanAutomovil.automovil.anio}" required="true" min="1990" max="2020"
+				 requiredMessage="El año es requerido" />
+				
+				
 				<h:outputText value="Color" />
 				<p:inputText value="#{beanAutomovil.automovil.color}"
 					requiredMessage="El color es requerido" required="true">
@@ -272,8 +267,8 @@ setInterval(escribirTexto, 100);
 					requiredMessage="La descripción  es requerida" required="true">
 				</p:inputText>
 				<h:outputText value="Precio" />
-				<p:inputNumber value="#{beanAutomovil.automovil.precio}" 
-				></p:inputNumber>
+				<p:spinner  value="#{beanAutomovil.automovil.precio}" required="true" min="45" max="200"
+				 requiredMessage="El precio es requerido" />
 				<h:outputText value="Estado" />
 				<p:selectOneRadio id="estado"
 					value="#{beanAutomovil.automovil.estadoAutomovil}" required="true"

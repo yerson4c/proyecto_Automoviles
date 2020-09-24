@@ -114,10 +114,9 @@ setInterval(escribirTexto, 100);
 				</p:menuitem>
 				<p:menuitem value="Entregas" icon="pi pi-eye" update="@form" action="#{beanUsuario.irEntregas()}" class="manu" >
 				</p:menuitem>
-				<p:menuitem value="Reportes" icon="pi pi-chart-line" update="@form" action="#{beanUsuario.irReportes()}" class="manu" >
+				<p:menuitem value="Reportes" icon="pi pi-print" update="@form" action="#{beanUsuario.irReportes()}" class="manu" >
 				</p:menuitem>
-				<p:menuitem  value="Configuraciones" icon="pi pi-cog" update="@form" action="#{beanUsuario.irConfiguraciones()}" class="manu" > 
-				</p:menuitem>
+				
 			  <f:facet name="options">
 			  	
 				<p:outputLabel style="color:white" value="#{beanLogin.correo} | Gerente..  "></p:outputLabel>
@@ -160,6 +159,10 @@ setInterval(escribirTexto, 100);
 							<h:outputText value="#{c.alquiler.automovil.anio}" >
 							
 							 </h:outputText>
+						</p:column>
+						<p:column headerText="Precio"
+							sortBy="#{c.alquiler.automovil.precio}" >
+							<h:outputText value="#{c.alquiler.automovil.precio} $" />
 						</p:column>
 						<p:column headerText="Fecha Inicio Alquiler "
 							sortBy="#{c.alquiler.fechainicio}"  filterBy="#{c.alquiler.fechainicio}">
@@ -209,17 +212,17 @@ setInterval(escribirTexto, 100);
 						
 						
 									
-						<p:column headerText="Aprobar solicitud">
-							<p:commandButton icon="fa fa-check" 
-								title="Aprobar" update="form"
-								actionListener="#{beanAlquiler.actionListenerAprobarAlquiler(c)}"
-								oncomplete="PF('dlgEliminar').show();">
-								<p:confirm header="Confirmación" message="¿Desea aprobar?"
-									icon="fa fa-info"></p:confirm>
-							</p:commandButton>
+<!-- 						<p:column headerText="Aprobar solicitud"> -->
+<!-- 							<p:commandButton icon="fa fa-check"  -->
+<!-- 								title="Aprobar" update="form" -->
+<!-- 								actionListener="#{beanAlquiler.actionListenerAprobarAlquiler(c)}" -->
+<!-- 								oncomplete="PF('dlgEliminar').show();"> -->
+<!-- 								<p:confirm header="Confirmación" message="¿Desea aprobar?" -->
+<!-- 									icon="fa fa-info"></p:confirm> -->
+<!-- 							</p:commandButton> -->
 
 							
-						</p:column>
+<!-- 						</p:column> -->
 					</p:dataTable>
 
 				</h:form>

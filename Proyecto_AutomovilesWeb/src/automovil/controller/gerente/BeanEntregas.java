@@ -48,6 +48,7 @@ public class BeanEntregas implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<EstadoAlquiler> listaEntregas;
 	private EstadoAlquiler entregas;
+	private Alquiler alquiler;
 	private Integer idEntregas;
 	
 	
@@ -85,6 +86,23 @@ public class BeanEntregas implements Serializable {
 		
 	}
 
+	public void actionListenerCargarAlquilerUsuario(Alquiler u) {
+		try {
+			alquiler=managerAlquiler.findByIdAlquileres(u.getIdAlquiler());
+//			alquiler.setFechainicio(u.getFechainicio());
+//			alquiler.setFechafin(u.getFechafin());
+//			alquiler.setEstado(u.getEstado());
+//			alquiler.setGasolina(u.getGasolina());
+//			alquiler.setRecepcion(u.getRecepcion());
+//			alquiler.setObservaciones(u.getObservaciones());
+//			alquiler.setUsuarioRol(managerUsuarioRol.findByIdUsuarioRol(u.getUsuarioRol().getIdUsuarioRol()));
+//			alquiler.setIdAlquiler(u.getIdAlquiler());
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public void actionListenerCargarEntregas(EstadoAlquiler u) {
 		try {
@@ -104,14 +122,17 @@ public class BeanEntregas implements Serializable {
 		try {
 //			if (alquiler.getEstado().toString().length() > 0) {
 				EstadoAlquiler e=new EstadoAlquiler();
-				e.setAlquiler(managerAlquiler.findByIdAlquileres(entregas.getIdEstado()));
-				e.setEntregado(entregas.getEntregado());
+				alquiler.setEntregado("SI");
+				e.setAlquiler(managerAlquiler.findByIdAlquileres(alquiler.getIdAlquiler()));
+				e.setEntregado("S");
 				e.setFechaRecepcion(entregas.getFechaRecepcion());
-				e.setUsuarioRol(managerUsuarioRol.findByIdUsuarioRol(entregas.getUsuarioRol().getIdUsuarioRol()));
+				e.setUsuarioRol(managerUsuarioRol.findByIdUsuarioRol(alquiler.getUsuarioRol().getIdUsuarioRol()));
+				managerAlquiler.actualizarAlquiler(alquiler);
 				
 				managerEntregas.insertarEstadoAlquiler(e);
+				
 				listaEntregas=managerEntregas.findAllEstadoAlquiler();	
-
+				
 				 
 				JSFUtil.crearMensajeInfo("Alquilado exitosamente");
 //			} else {
@@ -301,6 +322,14 @@ public class BeanEntregas implements Serializable {
 
 	public void setLogin(BeanLogin login) {
 		this.login = login;
+	}
+
+	public Alquiler getAlquiler() {
+		return alquiler;
+	}
+
+	public void setAlquiler(Alquiler alquiler) {
+		this.alquiler = alquiler;
 	}
 
 

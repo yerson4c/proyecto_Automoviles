@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Base64;
 import java.util.Calendar;
@@ -113,28 +114,52 @@ public class BeanAutomovil implements Serializable {
 	
 	public void actionListenerInsertarAlquiler() {
 		try {
-//			if (alquiler.getEstado().toString().length() > 0) {
+			if (alquiler.getFechainicio().toString().length() > 0 && 
+					alquiler.getFechafin().toString().length() > 0 ) {
 				
 				Alquiler u=new Alquiler();
+				
+				BigDecimal valorInicio=BigDecimal.ZERO;
+				BigDecimal valorFin=BigDecimal.ZERO;
+				BigDecimal resp=BigDecimal.ZERO;
+				valorInicio=new BigDecimal(alquiler.getFechainicio().getTime());
+				valorFin=new BigDecimal(alquiler.getFechafin().getTime());
+				System.out.println(valorFin.longValue());
+				System.out.println("valor inicio "+valorInicio.longValue());
+				resp=valorFin.subtract(valorInicio);
+				System.out.println("resp "+resp.longValue());
+				if (resp.longValue()<86400000 && resp.longValue()>0) {
+					
 				
 				u.setFechainicio(new Timestamp(alquiler.getFechainicio().getTime()));
 				u.setFechafin(new Timestamp(alquiler.getFechafin().getTime()));
 				u.setEstado("A");
-				u.setAprobado("NO");
+				u.setAprobado("NO");	
+				u.setEntregado("NO");
 				u.setGasolina(alquiler.getGasolina());
-				u.setRecepcion(alquiler.getRecepcion());
+				u.setRecepcion("xxxxxxxxxx");
 				u.setObservaciones(alquiler.getObservaciones());
 				u.setUsuarioRol(managerUsuarioRol.findByIdUsuarioRol(login.getLoginDTO().getIdRolUsuario()));
 				u.setAutomovil(managerAutomovil.findByIdAutomovil(automovil.getIdAutomovil()));
-				managerAlquiler.insertarAlquiler(u);
+				boolean validar=false;
+				List<Alquiler>lstAlq=managerAlquiler.FindlstAlquilerWhereUserAutoAlq(u.getUsuarioRol().getIdUsuarioRol(), u.getAutomovil().getIdAutomovil(), "NO");
+				if (lstAlq.size()==0) {
+					managerAlquiler.insertarAlquiler(u);
+					
+					inicializar();
+					//listaMedida=managerMedida.findAllMedidas();
+					//managerbit.crearEvento("actionListenerActualizarMedida()", "actualiza una medida ");
+					JSFUtil.crearMensajeInfo("Alquilado exitosamente");
+				}else {
+					JSFUtil.crearMensajeError("Error al crear: Ya existe registro con ese alquiler");
+				}
 				
-
-				//listaMedida=managerMedida.findAllMedidas();
-				//managerbit.crearEvento("actionListenerActualizarMedida()", "actualiza una medida ");
-				JSFUtil.crearMensajeInfo("Alquilado exitosamente");
-//			} else {
-//				JSFUtil.crearMensajeError("Debe ingresar el estado"); 
-//			}		
+				} else {
+					JSFUtil.crearMensajeError("Error: Solo se permite ingresar maximo 1 día completo");
+				}
+			} else {
+				JSFUtil.crearMensajeError("Debe ingresar las fechas"); 
+			}		
 			
 		} catch (Exception e) {
 			JSFUtil.crearMensajeError("Error al insertar");

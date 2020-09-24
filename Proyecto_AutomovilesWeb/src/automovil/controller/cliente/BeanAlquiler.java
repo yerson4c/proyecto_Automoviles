@@ -18,6 +18,7 @@ import automovil.controller.gerente.JSFUtil;
 import automovil.controller.login.BeanLogin;
 import automovil.model.entities.Alquiler;
 import automovil.model.entities.Automovil;
+import automovil.model.entities.EstadoAlquiler;
 import automovil.model.entities.Usuario;
 
 
@@ -35,6 +36,8 @@ public class BeanAlquiler implements Serializable {
 	private Alquiler  alquiler;
 	private Integer idAlquier;
 
+	@EJB
+	private ManagerEstadoAlquiler  managerEntregas;
 	
 	@EJB
 	private ManagerAlquiler managerAlquiler;
@@ -53,6 +56,8 @@ public class BeanAlquiler implements Serializable {
 	@PostConstruct
 	public void inicializar() {
 		try {
+			listaEntregas=managerEntregas.findAllEstadoAlquiler();
+			entregas=new EstadoAlquiler();
 			listaAlquiler=managerAlquiler.findAllAlquiler();
 			alquiler=new Alquiler();
 			
@@ -111,6 +116,43 @@ public class BeanAlquiler implements Serializable {
 
 	}
 	
+	private List<EstadoAlquiler> listaEntregas;
+	private EstadoAlquiler entregas;
+	///////////////////////////////////////////////////////////////////
+	public void actionListenerInsertarEntregas() {
+		try {
+//			if (alquiler.getEstado().toString().length() > 0) {
+				EstadoAlquiler e=new EstadoAlquiler();
+				alquiler.setEntregado("SI");
+				e.setAlquiler(managerAlquiler.findByIdAlquileres(alquiler.getIdAlquiler()));
+				e.setEntregado("S");
+				e.setFechaRecepcion(entregas.getFechaRecepcion());
+				e.setUsuarioRol(managerUsuarioRol.findByIdUsuarioRol(alquiler.getUsuarioRol().getIdUsuarioRol()));
+				managerAlquiler.actualizarAlquiler(alquiler);
+				
+				managerEntregas.insertarEstadoAlquiler(e);
+				
+				listaEntregas=managerEntregas.findAllEstadoAlquiler();	
+				listaAlquiler=managerAlquiler.findAllAlquiler();
+				 
+				JSFUtil.crearMensajeInfo("Alquilado exitosamente");
+//			} else {
+//				JSFUtil.crearMensajeError("Debe ingresar el estado"); 
+//			}		
+			
+		} catch (Exception e) {
+			JSFUtil.crearMensajeError("Error al insertar");
+		}
+
+	}
+	
+	public boolean validarBotonEntrega(Alquiler entregado) {
+		if (entregado.getAprobado().equals("SI") && entregado.getEntregado().equals("NO")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	public boolean validarBotonAlquiler(String v) {
 		if (v.equals("SI")) {
 			return false;
@@ -118,7 +160,6 @@ public class BeanAlquiler implements Serializable {
 			return true;
 		}
 	}
-	
 	public void actionListenerActualizarAlquiler() {
 		try {
 			if (alquiler.getEstado().toString().length() > 0) {
@@ -265,6 +306,22 @@ public class BeanAlquiler implements Serializable {
 
 	public void setBeanAuto(BeanAutomovil beanAuto) {
 		this.beanAuto = beanAuto;
+	}
+
+	public List<EstadoAlquiler> getListaEntregas() {
+		return listaEntregas;
+	}
+
+	public void setListaEntregas(List<EstadoAlquiler> listaEntregas) {
+		this.listaEntregas = listaEntregas;
+	}
+
+	public EstadoAlquiler getEntregas() {
+		return entregas;
+	}
+
+	public void setEntregas(EstadoAlquiler entregas) {
+		this.entregas = entregas;
 	}
 	
 

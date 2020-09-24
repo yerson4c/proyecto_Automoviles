@@ -95,7 +95,7 @@ setInterval(escribirTexto, 100);
 
 </h:head>
 
-<body onload="#{beanAlquiler.inicializar()}">
+<body onload="#{beanAlquiler.inicializar()} #{beanEntregas.inicializar()}">
 	<p:growl>
 		<p:autoUpdate></p:autoUpdate>
 	</p:growl>
@@ -114,10 +114,9 @@ setInterval(escribirTexto, 100);
 				</p:menuitem>
 				<p:menuitem value="Entregas" icon="pi pi-eye" update="@form" action="#{beanUsuario.irEntregas()}" class="manu" >
 				</p:menuitem>
-				<p:menuitem value="Reportes" icon="pi pi-chart-line" update="@form" action="#{beanUsuario.irReportes()}" class="manu" >
+				<p:menuitem value="Reportes" icon="pi pi-print" update="@form" action="#{beanUsuario.irReportes()}" class="manu" >
 				</p:menuitem>
-				<p:menuitem  value="Configuraciones" icon="pi pi-cog" update="@form" action="#{beanUsuario.irConfiguraciones()}" class="manu" > 
-				</p:menuitem>
+				
 			  <f:facet name="options">
 			  	
 				<p:outputLabel style="color:white" value="#{beanLogin.correo} | Gerente..  "></p:outputLabel>
@@ -137,6 +136,10 @@ setInterval(escribirTexto, 100);
 					
 					<p:dataTable value="#{beanAlquiler.listaAlquiler}" reflow="true" var="c">
 						<h:inputHidden value="#{c.idAlquiler}" />
+						<p:column headerText="Cliente"
+							>
+							<h:outputText value="#{c.usuarioRol.usuario.nombreUsuario}" />
+						</p:column>
 						<p:column headerText="Fecha Inicio  "
 							sortBy="#{c.fechainicio}" filterBy="#{c.fechainicio}">
 							<h:outputText value="#{c.fechainicio}" >
@@ -189,6 +192,17 @@ setInterval(escribirTexto, 100);
 
 							
 						</p:column>
+						
+						<p:column headerText="Registrar entrega">
+							<p:commandButton icon="fa fa-plus" 
+							actionListener="#{beanEntregas.actionListenerCargarAlquilerUsuario(c)}"
+							rendered="#{beanAlquiler.validarBotonEntrega(c)}"
+								title="Registrar entrega" update="formEntrega"
+								oncomplete="PF('dlgEntrega').show();">
+							</p:commandButton>
+
+							
+						</p:column>
 					</p:dataTable>
 
 				</h:form>
@@ -199,6 +213,49 @@ setInterval(escribirTexto, 100);
 
 	</p:panel>
 
+<p:dialog header="Nueva entrega" widgetVar="dlgEntrega">
+		<h:form id="formEntrega">
+			<p:growl>
+				<p:autoUpdate />
+			</p:growl>
+
+			<p:panelGrid columns="2">
+			
+			<h:outputText value="Usuario" />
+				<p:outputLabel value="#{beanEntregas.alquiler.usuarioRol.usuario.apellidoUsuario} #{beanEntregas.alquiler.usuarioRol.usuario.nombreUsuario}"
+					/>
+				
+				<h:outputText value="Fecha inicio" />
+				<p:outputLabel  value="#{beanEntregas.alquiler.fechainicio}" >
+				</p:outputLabel>
+				
+
+				<h:outputText value="Fecha fin" />
+				<p:outputLabel  value="#{beanEntregas.alquiler.fechafin}" >
+				</p:outputLabel>
+				
+				<h:outputText value="Automóvil modelo" />
+				<p:outputLabel  value="#{beanEntregas.alquiler.automovil.modelo}" >
+				</p:outputLabel>
+				
+				<h:outputText value="Placa" />
+				<p:outputLabel  value="#{beanEntregas.alquiler.automovil.placa}" >
+				</p:outputLabel>
+				
+				<h:outputText value="Fecha Recepción" />
+				<p:calendar  value="#{beanEntregas.entregas.fechaRecepcion}"
+					requiredMessage="Fecha de receción es requerida" required="true"  pattern="MM/dd/yyyy HH:mm:ss" >
+				</p:calendar>
+				
+			</p:panelGrid>
+			<br />
+			<p:commandButton value="Entregar auto" update="form"
+				actionListener="#{beanEntregas.actionListenerInsertarEntregas()}"
+				oncomplete="PF('dlgEntrega').hide();">
+			</p:commandButton>
+		</h:form>
+
+	</p:dialog>
 	<p:dialog header="Crear Alquiler" widgetVar="dlgCrear">
 		<h:form id="formCrear">
 			<p:growl>

@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+		<f:event listener="#{beanLogin.actionVerificarLogin()}"
+			type="preRenderView"></f:event>
+		
+	</f:metadata>
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<!-- Bootstrap core CSS -->
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<!-- Custom fonts for this template -->
+<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css" />
+	
+ <link rel="stylesheet" href="../css/style-sesion.css" />
+        <script src="../js/script.js"></script>
+
+	<style>
+
+.old {
+        background-color: #00B53D !important;
+        background-image: none !important;
+        color: #FFFF !important;
+        padding: 5px;
+        border-radius: 12%;
+        font-family: sans-serif;
+    }
+.bad{
+	  background-color: #F33E2B !important;
+        background-image: none !important;
+        color: #FFFF !important;
+        padding: 5px;
+        border-radius: 12%;
+        font-family: sans-serif;
+}  
+.manu{
+color:#fff !important;
+font-family:sans-serif;
+background-color: #ffc4c5;
+
+
+}
+
+.green {
+	background-color: #00B53D !important;
+	background-image: none !important;
+	color: #FFFF !important;
+	padding: 5px;
+	border-radius: 5%;
+	font-family: sans-serif;
+}
+
+.red {
+	background-color: #F33E2B !important;
+	background-image: none !important;
+	color: #FFFF !important;
+	padding: 5px;
+	border-radius: 5%;
+	font-family: sans-serif;
+}
+
+.yellow {
+	background-color: #ffff00 !important;
+	background-image: none !important;
+	color: #000 !important;
+	padding: 5px;
+	border-radius: 5%;
+	font-family: sans-serif;
+}
+</style>
+<script  >
+ const text="El botón de eliminar estará habilitado cuando no existan registros secundarios del proyecto ";
+let index=0;
+function escribirTexto() {
+	
+	document.getElementById("texto").innerHTML=text.slice(0,index);
+	index++;
+	if (index>text.length) {
+		index=0;
+	}
+}
+setInterval(escribirTexto, 100); 
+</script>
+
+</h:head>
+
+<body onload="#{beanReportes.inicializar()}">
+	<p:growl>
+		<p:autoUpdate></p:autoUpdate>
+	</p:growl>
+	<h:form>
+	
+	
+	<p:menubar style="background-color:rgb(216, 0, 0)">
+
+				<p:menuitem value="Inicio" icon="pi pi-home" update="@form" action="#{beanUsuario.irHome()}" class="manu" >
+				</p:menuitem>
+				<p:menuitem value="Usuarios" icon="pi pi-user" update="@form" action="#{beanUsuario.irUsuarios()}"  class="manu" >
+				</p:menuitem>
+				<p:menuitem value="Automóviles" icon="pi pi-star" update="@form"  action="#{beanUsuario.irAutomoviles()}"  class="manu" >
+				</p:menuitem>
+				<p:menuitem value="Solicitudes" icon="pi pi-calendar-plus" update="@form" action="#{beanUsuario.irSolicitudes()}"  class="manu" >
+				</p:menuitem>
+				<p:menuitem value="Entregas" icon="pi pi-eye" update="@form" action="#{beanUsuario.irEntregas()}" class="manu" >
+				</p:menuitem>
+				<p:menuitem value="Reportes" icon="pi pi-print" update="@form" action="#{beanUsuario.irReportes()}" class="manu" >
+				</p:menuitem>
+				
+			  <f:facet name="options">
+			  	
+				<p:outputLabel style="color:white" value="#{beanLogin.correo} | Gerente..  "></p:outputLabel>
+				<p:commandButton style="background-color:red" action="#{beanLogin.salirSistema()}"
+					value="Cerrar sesión" 
+					icon="pi pi-power-off" />
+				</f:facet>	
+			
+	</p:menubar>
+	</h:form>
+	<p:panel  header="REPORTE DE AUTOS POR DÍA ESPECÍFICO">
+		<div class="ui-g" style="margin-top: 20px;">
+
+			
+			<div class="ui-g-12 ui-md-12 ui-lg-12">
+				<h:form id="form">
+				<p:panel header="Fecha">
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Fecha de inicio :"></p:outputLabel>
+					</p:column>
+					<p:column>
+						<p:calendar value="#{beanReportes.fecha}"  required="true" requiredMessage="Es necesario ingresar la fecha">
+						</p:calendar>
+					</p:column>
+				   <p:column>
+					<p:commandButton value="Calcular fecha" update="form" icon="pi pi-calendar-plus" actionListener="#{beanReportes.obtenerDatos()}"></p:commandButton>
+					</p:column>
+					
+				    <p:column>
+					<p:commandButton value="Reporte pdf" icon="pi pi-print"  onclick="window.print()"></p:commandButton>
+					</p:column>
+				</p:row>
+				</p:panel>
+				
+					<hr></hr>
+					<p:dataTable value="#{beanReportes.lstAlquiler}" emptyMessage="Sin datos" reflow="true" var="c">
+						<h:inputHidden value="#{c.idAlquiler}" />
+						<p:column headerText="Cliente"
+							>
+							<h:outputText value="#{c.usuarioRol.usuario.nombreUsuario} #{c.usuarioRol.usuario.apellidoUsuario}" />
+						</p:column>
+						<p:column headerText="Modelo Automovil  "
+							>
+							<h:outputText value="#{c.automovil.modelo}" >
+							
+							 </h:outputText>
+						</p:column>
+						<p:column headerText="Marca Automovil  "
+						>
+							<h:outputText value="#{c.automovil.marca}" >
+							
+							 </h:outputText>
+						</p:column>
+						<p:column headerText="Placa  "
+						>
+							<h:outputText value="#{c.automovil.placa}" >
+							 </h:outputText>
+						</p:column>
+						<p:column headerText="Año Automovil  ">
+							<h:outputText value="#{c.automovil.anio}" >
+							 </h:outputText>
+						</p:column>
+						<p:column headerText="Fecha Inicio  "
+							>
+							<h:outputText value="#{c.fechainicio}" >
+							 <f:convertDateTime locale="es_ES" timeZone="America/Bogota" pattern="MM/dd/yyyy HH:mm:ss" />
+							 </h:outputText>
+						</p:column>
+						<p:column headerText="Fecha Fin  "
+							>
+							<h:outputText value="#{c.fechafin}" >
+							 <f:convertDateTime locale="es_ES" timeZone="America/Bogota" pattern="MM/dd/yyyy HH:mm:ss" />
+							 </h:outputText>
+						</p:column>
+						
+						<p:column headerText="Gasolina"
+							>
+							<h:outputText value="#{c.gasolina}" />
+						</p:column>
+						<p:column headerText="Recepción"
+							>
+							<h:outputText value="#{c.recepcion}" />
+						</p:column>
+						<p:column headerText="Observaciones"
+							>
+							<h:outputText value="#{c.observaciones}" />
+						</p:column>
+						<p:column headerText="Estado " sortBy="#{c.estado}">
+							<p:outputLabel 
+							value="#{c.estado eq 'A'?'Alquilado':c.estado eq 'E' ? 'Entregado' :c.estado eq 'D'? 'Disponible':''}"
+							styleClass="#{c.estado eq 'A'?'red':c.estado eq 'E' ? 'yellow' :c.estado eq 'D'? 'green':''}">
+							</p:outputLabel>
+						
+						</p:column>
+						
+						<p:column width="6%" headerText="Aprobado" sortBy="#{c.aprobado}">
+							<p:outputLabel 
+							value="#{c.aprobado}"
+							styleClass="#{c.aprobado eq 'NO'?'red': 'green' }">
+							</p:outputLabel>
+						
+						</p:column>
+									
+					
+					</p:dataTable>
+
+				</h:form>
+			</div>
+
+		</div>
+
+
+	</p:panel>
+
+<hr></hr>
+	
+	<!-- Footer -->
+	<footer class="footer">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-md-4">
+				<span class="copyright">Copyright 2020</span>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline social-buttons">
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-twitter"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-facebook-f"></i>
+					</a></li>
+					<li class="list-inline-item"><a href="#"> <i
+							class="fab fa-linkedin-in"></i>
+					</a></li>
+				</ul>
+			</div>
+			<div class="col-md-4">
+				<ul class="list-inline quicklinks">
+					<li class="list-inline-item"><a href="#"></a></li>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+	</footer>
+	
+  <!-- Footer Links -->
+  <div class="footer-links">
+    <div class="footer-container">
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Empresa</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Acerca de nosotros</a>
+        </li>
+        <li>
+          <a href="#">Política de privacidad</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+            <h2>Colaboración</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Términos de servicio</a>
+        </li>
+        <li>
+          <a href="#">Programa de afiliación</a>
+        </li>
+       
+      </ul>
+       <ul>
+        <li>
+          <a href="#">
+            <h2>Más</h2>
+          </a>
+        </li>
+        <li>
+          <a href="#">Preguntas frecuentes</a>
+        </li>
+        <li>
+          <a href="#">Garantía del Mejor Precio</a>
+        </li>
+       
+      </ul>
+      <ul>
+        <li>
+          <a href="#">
+           <img width="300" src="../img/portfolio/descarga.png"></img>
+          </a>
+        </li>
+      
+       
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h4>Alquiler de autos Ecuador - Copyright</h4>
+  </footer>
+
+	
+	
+</body>
+</html>

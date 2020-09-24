@@ -30,6 +30,9 @@ public class Alquiler implements Serializable {
 	@Column(nullable=false, length=2)
 	private String aprobado;
 
+	@Column(nullable=false, length=2)
+	private String entregado;
+
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable=false)
@@ -190,6 +193,14 @@ public class Alquiler implements Serializable {
 
 	public void setAprobado(String aprobado) {
 		this.aprobado = aprobado;
+	}
+
+	public String getEntregado() {
+		return entregado;
+	}
+
+	public void setEntregado(String entregado) {
+		this.entregado = entregado;
 	}
 
 	

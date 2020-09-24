@@ -47,6 +47,20 @@ private ManagerDAO managerDAO;
 		}
     	
     }
+    
+    @SuppressWarnings("unchecked")
+	public List<Alquiler>findAllAlquilerByFechaInicio(int dia,int mes,int anio) throws Exception{
+    	List<Alquiler>lstAlquiler=new ArrayList<>();
+    	try {   
+    		lstAlquiler=managerDAO.findWhere(Alquiler.class, "EXTRACT(month FROM o.fechainicio)='"+mes+"' AND EXTRACT(day FROM o.fechainicio)='"+dia+"' AND EXTRACT(year FROM o.fechainicio)='"+anio+"'", null);
+        	return lstAlquiler;
+        	
+		} catch (Exception e) {
+			throw new Exception("No existe registro de alquileres");
+		}
+    	
+    }
+    
     @SuppressWarnings("unchecked")
   	public List<Alquiler>findAllAlquiler() throws Exception{
       	List<Alquiler>lstAlquiler=new ArrayList<>();
@@ -59,6 +73,18 @@ private ManagerDAO managerDAO;
   		}
       	
       }
+    
+    public List<Alquiler>FindlstAlquilerWhereUserAutoAlq(Integer idusuario,Integer idauto,String estado){
+    	List<Alquiler>lstAlquiler=new ArrayList<>();
+    			try {
+    				lstAlquiler=managerDAO.findWhere(Alquiler.class, "o.usuarioRol.idUsuarioRol="+idusuario +" AND o.automovil.idAutomovil="+idauto+" AND o.entregado='"+estado+"'", null);
+    				return lstAlquiler;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+    		return lstAlquiler;
+    }
+    
     public Alquiler findByIdAlquileres(Integer id) {
     	
     	try {
